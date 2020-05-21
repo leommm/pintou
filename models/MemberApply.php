@@ -74,4 +74,8 @@ class MemberApply extends \yii\db\ActiveRecord
         }
         return parent::beforeSave($insert);
     }
+
+    public function getUser() {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
 }

@@ -7,6 +7,7 @@ namespace app\modules\mch\controllers;
 use app\hejiang\ApiResponse;
 use app\models\CommissionLog;
 use app\models\Member;
+use app\models\MemberApply;
 use app\models\PintouShop;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
@@ -169,6 +170,54 @@ class MemberController extends Controller
                 'real_name' => $real_name,
             ],
         ]);
+    }
+
+    //认证申请
+    public function actionApplyList($status='') {
+        $query = MemberApply::find()->where(['is_delete' => 0]);
+        if ($status!=='') {
+            $query->andWhere(['status' => $status]);
+        }
+
+        $query->orderBy('create_time DESC');
+        $count = $query->count();
+        $pagination = new Pagination([
+            'totalCount' => $count,
+        ]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
+        $dataProvider->setPagination($pagination);
+        return $this->render('apply-list', [
+            'list' => $dataProvider->getModels(),
+            'pagination' => $pagination,
+            'search' => [
+                'status' => $status,
+            ],
+        ]);
+    }
+
+    //认证通过/驳回
+    public function actionApply($id,$status) {
+        $apply = MemberApply::findOne($id);
+        $msg = '已驳回';
+        if ($status == 1) {
+            $member = Member::find()->andWhere(['phone'=>$apply->phone,'real_name'=>$apply->real_name])->one();
+            if (!$member) {
+                return ['code'=>1,'msg'=>'未找到成员'];
+            }
+            $member->is_active = 1;
+            $member->active_time = date('Y-m-d H:i:s');
+            $member->user_id = $apply->user_id;
+            $member->id_card = $apply->id_card;
+            $member->bank_card = $apply->bank_card;
+            //todo 生成分享图
+            $member->save();
+            $msg = '已通过';
+        }
+        $apply->status = $status;
+        $apply->save();
+        return ['code'=>0,'msg'=>$msg];
     }
 
 

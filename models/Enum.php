@@ -6,6 +6,11 @@ namespace app\models;
 
 class Enum
 {
+    //认证申请状态
+    public static $APPLY_STATUS_TYPE = [
+        0 => '未审核', 1 => '通过', 2 => '驳回'
+    ];
+
     //拼投意向状态
     public static $STATUS_TYPE = [
         1 => '未审核', 2 => '跟进中', 3 => '已成交', 4 => '未成交'

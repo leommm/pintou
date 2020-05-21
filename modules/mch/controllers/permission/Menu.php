@@ -414,6 +414,18 @@ class Menu
                         ],
                     ],
                     [
+                        'name' => '认证申请',
+                        'is_menu' => true,
+                        'route' => 'mch/member/apply-list',
+                        'sub' => [
+                            [
+                                'name' => '通过/驳回',
+                                'is_menu' => false,
+                                'route' => 'mch/member/apply',
+                            ],
+                        ],
+                    ],
+                    [
                         'name' => '佣金记录',
                         'is_menu' => true,
                         'route' => 'mch/member/commission-log',

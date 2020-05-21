@@ -111,7 +111,9 @@ class MemberRegisterForm extends ApiModel
                 'real_name' => $this->real_name,
                 'phone' => $this->phone
             ];
-            $apply->save();
+            if ($apply->save()) {
+                \Yii::$app->cache->delete('code_cache'.$this->phone);
+            }
             return ['code'=>0,'msg'=>'认证申请已提交','data'=>[]];
         }else {
             $model->id_card = $this->id_card;
