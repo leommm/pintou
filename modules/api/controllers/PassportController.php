@@ -19,7 +19,7 @@ class PassportController extends Controller
         $form->attributes = \Yii::$app->request->post();
 
         $form->wechat_app = $this->wechat_app;
-        $form->store_id = $this->store->id;
+//        $form->store_id = $this->store->id;
         return $form->login();
     }
 

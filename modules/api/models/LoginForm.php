@@ -20,17 +20,17 @@ class LoginForm extends ApiModel
     public $wechat_app;
 
     public $code;
-    public $user_info;
+//    public $user_info;
     public $encrypted_data;
     public $iv;
     public $signature;
 
-    public $store_id;
+//    public $store_id;
 
     public function rules()
     {
         return [
-            [['wechat_app', 'code', 'user_info', 'encrypted_data', 'iv', 'signature',], 'required'],
+            [['wechat_app', 'code', 'encrypted_data', 'iv', 'signature',], 'required'],
         ];
     }
 
@@ -50,7 +50,7 @@ class LoginForm extends ApiModel
         if ($errCode == 0) {
             $data = json_decode($data, true);
 
-            $user = User::findOne(['wechat_open_id' => $data['openId'], 'store_id' => $this->store_id]);
+            $user = User::findOne(['wechat_open_id' => $data['openId']]);
             if (!$user) {
                 $user = new User();
                 $user->gender=$data['gender'];
@@ -68,12 +68,12 @@ class LoginForm extends ApiModel
                 //$user->nickname = $data['nickName'];
                 $user->nickname = preg_replace('/[\xf0-\xf7].{3}/', '', $data['nickName']);
                 $user->avatar_url = $data['avatarUrl'] ? $data['avatarUrl'] : \Yii::$app->request->hostInfo . \Yii::$app->request->baseUrl . '/statics/images/avatar.png';
-                $user->store_id = $this->store_id;
+//                $user->store_id = $this->store_id;
                 $user->save();
                 $same_user = User::find()->select('id')->where([
                     'AND',
                     [
-                        'store_id' => $this->store_id,
+//                        'store_id' => $this->store_id,
                         'wechat_open_id' => $data['openId'],
                         'is_delete' => 0,
                     ],
@@ -104,8 +104,8 @@ class LoginForm extends ApiModel
                 $user->avatar_url = $data['avatarUrl'];
                 $user->save();
             }
-            $share = Share::findOne(['user_id' => $user->parent_id]);
-            $share_user = User::findOne(['id' => $share->user_id]);
+//            $share = Share::findOne(['user_id' => $user->parent_id]);
+//            $share_user = User::findOne(['id' => $share->user_id]);
             $data = [
                 'gender'=>$user->gender,
                 'access_token' => $user->access_token,
