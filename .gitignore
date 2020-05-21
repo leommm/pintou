@@ -1,0 +1,25 @@
+.env
+/.env
+.idea
+/.ided
+*.log
+/nbproject/
+/nbproject/private/
+.DS_Store
+thumbs.db
+*.bak
+*.sw*
+composer.lock
+.phpcd
+.buildpath
+.project
+.settings/
+tags
+.tags
+.phpcomplete_extended/
+/phpunit.xmlii
+runtime/cache/
+runtime/logs/
+runtime/debug/
+# hejiang application files
+config/ind_db.php
