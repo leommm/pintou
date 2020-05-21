@@ -38,7 +38,6 @@ class LoginForm extends ApiModel
     {
         if (!$this->validate())
             return $this->errorResponse;
-//        var_dump($this->iv);exit;
         $res = $this->getOpenid($this->code);
         if (!$res || empty($res['openid'])) {
             return new ApiResponse(1,'获取用户OpenId失败',$res);
@@ -61,42 +60,23 @@ class LoginForm extends ApiModel
                 $user->access_token = \Yii::$app->security->generateRandomString();
                 $user->addtime = time();
                 $user->is_delete = 0;
-              //  $user->is_distributor=1;
-               // $user->time=time();
                 $user->wechat_open_id = $data['openId'];
-                $user->wechat_union_id = isset($data['unionId']) ? $data['unionId'] : '';
-                //$user->nickname = $data['nickName'];
                 $user->nickname = preg_replace('/[\xf0-\xf7].{3}/', '', $data['nickName']);
                 $user->avatar_url = $data['avatarUrl'] ? $data['avatarUrl'] : \Yii::$app->request->hostInfo . \Yii::$app->request->baseUrl . '/statics/images/avatar.png';
-//                $user->store_id = $this->store_id;
-                $user->save();
-                $same_user = User::find()->select('id')->where([
+                $same_user = User::find()->where([
                     'AND',
                     [
-//                        'store_id' => $this->store_id,
                         'wechat_open_id' => $data['openId'],
                         'is_delete' => 0,
                     ],
                     ['<', 'id', $user->id],
                 ])->one();
-              /* \Yii::$app->db->createCommand('INSERT INTO `cshopmall_share` (`user_id`,`status`,`store_id`,`addtime`) VALUES (:user_id,:status,:store_id,:addtime)', [
-                    ':user_id' => $user->id,
-                    ':status'=>1,
-                    ':store_id'=>$this->store_id,
-                    ':addtime'=>time(),
-
-                ]  )->execute();*/
-
 
                 if ($same_user) {
-                    $user->delete();
                     $user = null;
                     $user = $same_user;
                 }
-
-
-
-
+                $user->save();
 
             } else {
                 $user->gender=$data['gender'];
@@ -104,17 +84,13 @@ class LoginForm extends ApiModel
                 $user->avatar_url = $data['avatarUrl'];
                 $user->save();
             }
-//            $share = Share::findOne(['user_id' => $user->parent_id]);
-//            $share_user = User::findOne(['id' => $share->user_id]);
+
             $data = [
                 'gender'=>$user->gender,
                 'access_token' => $user->access_token,
                 'nickname' => $user->nickname,
                 'avatar_url' => $user->avatar_url,
-//                'is_distributor' => $user->is_distributor ? $user->is_distributor : 0,
-//                'parent' => $share->id ? ($share->name ? $share->name : $share_user->nickname) : '总店',
                 'id' => $user->id,
-//                'is_clerk' => $user->is_clerk === null ? 0 :$user->is_clerk,
                 'integral' => $user->integral === null ? 0 : $user->integral,
                 'money' => $user->money === null ? 0 : $user->money
             ];
