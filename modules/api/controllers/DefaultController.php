@@ -63,8 +63,8 @@ use app\modules\api\models\TopicTypeForm;
     public function actionIndex()
     {
 
-        $form = new IndexForm();
-//        $form = new NewIndexForm();
+//        $form = new IndexForm();
+        $form = new NewIndexForm();
         return $form->search();
     }
     public function actionGetLive(){
