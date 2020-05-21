@@ -45,26 +45,26 @@ class Controller extends \app\controllers\Controller
     public function init()
     {
         $this->enableCsrfValidation = false;
-        $_acid = \Yii::$app->request->get('_acid');
-        if (!$_acid) {
-            $_acid = \Yii::$app->request->post('_acid');
-        }
-
-        $this->store_id = \Yii::$app->request->get('store_id');
-
-        if ($_acid && $_acid != -1) {
-            $this->store = Store::findOne([
-                'acid' => $_acid,
-            ]);
-        } else {
-            $this->store = Store::findOne($this->store_id);
-        }
-        if (!$this->store) {
-            return new ApiResponse(1, 'Store Is Null');
-        }
-
-        $this->store_id = $this->store->id;
-        $this->wechat_app = WechatApp::findOne($this->store->wechat_app_id);
+//        $_acid = \Yii::$app->request->get('_acid');
+//        if (!$_acid) {
+//            $_acid = \Yii::$app->request->post('_acid');
+//        }
+//
+//        $this->store_id = \Yii::$app->request->get('store_id');
+//
+//        if ($_acid && $_acid != -1) {
+//            $this->store = Store::findOne([
+//                'acid' => $_acid,
+//            ]);
+//        } else {
+//            $this->store = Store::findOne($this->store_id);
+//        }
+//        if (!$this->store) {
+//            return new ApiResponse(1, 'Store Is Null');
+//        }
+//
+//        $this->store_id = $this->store->id;
+        $this->wechat_app = WechatApp::findOne(2);
         if (!$this->wechat_app) {
             return new ApiResponse(1, 'Wechat App Is Null');
         }
