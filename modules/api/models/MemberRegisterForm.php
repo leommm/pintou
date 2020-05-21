@@ -6,6 +6,9 @@ namespace app\modules\api\models;
 
 
 use app\models\Member;
+use app\models\MemberApply;
+use app\models\PintouShop;
+use app\models\SystemSetting;
 
 /**
  * 用户认证逻辑层
@@ -70,15 +73,15 @@ class MemberRegisterForm extends ApiModel
         }
         switch ($this->type) {
             case 1:
-            case 2:
+//            case 2:
             case 3:
                 $query = Member::find()->andWhere(['role'=>$this->type,'is_delete'=>0]);
                 break;
-            case 4:
-                $query = Member::find()->andWhere(['is_parent'=>1,'is_delete'=>0]);
-                break;
+//            case 4:
+//                $query = Member::find()->andWhere(['is_parent'=>1,'is_delete'=>0]);
+//                break;
             case 5:
-                //商户模型
+                $query = PintouShop::find()->andWhere(['is_delete'=>0]);
                 break;
             default:
                 return ['code'=>1,'msg'=>'请选择正确的身份类型'];
@@ -93,16 +96,35 @@ class MemberRegisterForm extends ApiModel
         if ($model->is_active) {
             return ['code'=>1,'msg'=>'该账号已认证'];
         }
-        $model->id_card = $this->id_card;
-        $model->bank_card = $this->bank_card;
-
-        $model->user_id = $this->user_id;
-        $model->active_time = date('Y-m-d H:i:s');
-        $model->is_active = 1;
-        if ($model->save()) {
-            \Yii::$app->cache->delete('code_cache'.$this->phone);
+        $condition = SystemSetting::findOne(1)->condition;
+        if ($condition) {
+            $exist = MemberApply::find()->andWhere(['is_delete'=>0,'status'=>0,'user_id'=>$this->user_id,'phone'=>$this->phone])->exists();
+            if ($exist) {
+                return ['code'=>1,'msg'=>'您有待审核的认证申请','data'=>[]];
+            }
+            $apply = new MemberApply();
+            $apply->attributes = [
+                'type' => $this->type,
+                'user_id' => $this->user_id,
+                'id_card' => $this->id_card,
+                'bank_card' => $this->bank_card,
+                'real_name' => $this->real_name,
+                'phone' => $this->phone
+            ];
+            $apply->save();
+            return ['code'=>0,'msg'=>'认证申请已提交','data'=>[]];
+        }else {
+            $model->id_card = $this->id_card;
+            $model->bank_card = $this->bank_card;
+            $model->user_id = $this->user_id;
+            $model->active_time = date('Y-m-d H:i:s');
+            $model->is_active = 1;
+            if ($model->save()) {
+                \Yii::$app->cache->delete('code_cache'.$this->phone);
+            }
+            return ['code'=>0,'msg'=>'认证成功,请登录','data'=>[]];
         }
-        return ['code'=>0,'msg'=>'认证成功','data'=>[]];
+
     }
 
 }

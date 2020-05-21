@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "cshopmall_pintou_shop".
  *
  * @property integer $id
+ * @property integer $user_id
  * @property string $real_name
  * @property string $phone
  * @property string $wechat
@@ -22,6 +23,7 @@ use Yii;
  * @property string $collection_code
  * @property integer $is_delete
  * @property string $create_time
+ * @property integer $is_active
  */
 class PintouShop extends \yii\db\ActiveRecord
 {
@@ -39,9 +41,9 @@ class PintouShop extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['real_name','phone','shop_name'], 'required'],
+            [['user_id', 'real_name'], 'required'],
+            [['user_id', 'is_delete', 'is_active'], 'integer'],
             [['total_income'], 'number'],
-            [['is_delete'], 'integer'],
             [['create_time'], 'safe'],
             [['real_name', 'wechat', 'password', 'shop_name', 'shop_type', 'shop_address', 'id_card', 'bank_card', 'license', 'collection_code'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 50],
@@ -55,6 +57,7 @@ class PintouShop extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'user_id' => 'User ID',
             'real_name' => 'Real Name',
             'phone' => 'Phone',
             'wechat' => 'Wechat',
@@ -69,6 +72,7 @@ class PintouShop extends \yii\db\ActiveRecord
             'collection_code' => '收款码',
             'is_delete' => 'Is Delete',
             'create_time' => 'Create Time',
+            'is_active' => '是否激活',
         ];
     }
 
@@ -76,9 +80,6 @@ class PintouShop extends \yii\db\ActiveRecord
     {
         if ($this->isNewRecord) {
             $this->create_time = date('Y-m-d H:i:s');
-        }
-        if (is_array($this->shop_type)){
-            $this->shop_type = implode(',',$this->shop_type);
         }
         return parent::beforeSave($insert);
     }
