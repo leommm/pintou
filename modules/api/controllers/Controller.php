@@ -64,7 +64,9 @@ class Controller extends \app\controllers\Controller
 //        }
 //
 //        $this->store_id = $this->store->id;
-        $this->wechat_app = WechatApp::findOne(2);
+        $this->store_id = 2;
+        $this->store = Store::findOne($this->store_id);
+        $this->wechat_app = WechatApp::findOne($this->store_id);
         if (!$this->wechat_app) {
             return new ApiResponse(1, 'Wechat App Is Null');
         }

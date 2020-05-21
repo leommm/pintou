@@ -10,8 +10,6 @@ namespace app\modules\api\models;
 
 
 use app\hejiang\ApiResponse;
-use app\models\Setting;
-use app\models\Share;
 use app\models\User;
 use Curl\Curl;
 
