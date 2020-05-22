@@ -8,6 +8,7 @@ namespace app\modules\api\models;
 use app\models\Member;
 use app\models\MemberApply;
 use app\models\PintouShop;
+use app\models\Store;
 use app\models\SystemSetting;
 
 /**
@@ -35,7 +36,7 @@ class MemberRegisterForm extends ApiModel
             [['real_name'],'required'],
             [['phone'],'match','pattern'=>\app\models\Model::MOBILE_PATTERN,'message'=>'手机号有误'],
             [['id_card'],'match','pattern'=>'/\+\d{17}[\d|x]|\d{15}\d/','message'=>'请检查身份证号'],
-            [['bank_card'],'match','pattern'=>'/\d{15}|\d{19}/','message'=>'请检查银行卡信息'],
+            [['bank_card'],'match','pattern'=>'/^(\d{16}|\d{19})$/','message'=>'请检查银行卡信息'],
             [['code'],'checkCode'],
         ];
     }
@@ -121,6 +122,17 @@ class MemberRegisterForm extends ApiModel
             $model->user_id = $this->user_id;
             $model->active_time = date('Y-m-d H:i:s');
             $model->is_active = 1;
+            $form = new QrcodeForm();
+            $form->data = [
+                'scene' => "{$model->id}",
+                'page' => 'pages/registered_members/registered_members',
+                'width' => 150
+            ];
+            $form->store = Store::findOne(2);
+            $res = $form->getQrcode();
+            if ($res['code']==0 && isset($res['data']['url'])) {
+                $model->share_img = $res['data']['url'];
+            }
             if ($model->save()) {
                 \Yii::$app->cache->delete('code_cache'.$this->phone);
             }

@@ -273,12 +273,15 @@ class MemberController extends Controller
 
     //商户删除
     public function actionShopDelete($id) {
-
+        $shop = new PintouShop();
+        $shop->is_delete = 1;
+        $shop->save();
+        return ['code'=>0,'msg'=>'已删除'];
     }
 
     //商户收入
     public function actionShopIncome($member_id=0,$shop_id=0,$is_cash='') {
-        $query = PintouShop::find()->where(['is_delete' => 0]);
+        $query = ShopIncome::find();
         if ($is_cash !== '') {
             $query->andWhere(['is_cash'=>$is_cash]);
         }

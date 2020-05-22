@@ -180,6 +180,7 @@ class MemberLoginForm extends ApiModel
             'unsettle_amount' => empty($unsettle_amount)? "0.00" :$unsettle_amount,
             'all_amount' => empty($all_amount)? "0.00":$all_amount,
             'client_num' => $num,
+            'share_img' => $this->model->share_img,
             'not_read' => SystemMessage::find()->andWhere(['member_id'=>$this->model->id,'is_delete'=>0,'is_read'=>0])->count(),
         ];
         $intention_list = ProjectIntention::find()->alias('a')
@@ -237,6 +238,7 @@ class MemberLoginForm extends ApiModel
             'unsettle_amount' => empty($unsettle_amount)? "0.00" :$unsettle_amount,
             'all_amount' => empty($all_amount)? "0.00":$all_amount,
             'client_num' => $num,
+            'share_img' => $this->model->share_img,
             'not_read' => SystemMessage::find()->andWhere(['member_id'=>$this->model->id,'is_delete'=>0,'is_read'=>0])->count(),
         ];
         return [
