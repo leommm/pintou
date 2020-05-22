@@ -278,7 +278,7 @@ class MemberLoginForm extends ApiModel
             'shop_name' => $this->model->shop_name,
             'collection_code' => $this->model->collection_code,
             'role_name' => Enum::$LOGIN_TYPE[$this->type],
-            'total_income' => $this->model->totla_income,
+            'total_income' => $this->model->total_income,
             'cash_amount' => '0.00',
             'uncash_amount' => '0.00',
             'not_read' => SystemMessage::find()->andWhere(['shop_id'=>$this->model->id,'is_delete'=>0,'is_read'=>0])->count(),
