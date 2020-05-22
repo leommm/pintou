@@ -42,7 +42,6 @@ class QrcodeForm extends ApiModel
         if (!in_array('Content-Type: image/jpeg', $curl->response_headers)) {
             //返回文字
             $res = json_decode($curl->response, true);
-            var_dump($res);die;
             return [
                 'code' => 1,
                 'msg' => $res['errmsg'],

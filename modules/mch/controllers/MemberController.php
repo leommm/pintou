@@ -9,6 +9,7 @@ use app\models\CommissionLog;
 use app\models\Member;
 use app\models\MemberApply;
 use app\models\PintouShop;
+use app\models\ShopIncome;
 use app\modules\api\models\QrcodeForm;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
@@ -190,7 +191,6 @@ class MemberController extends Controller
             ];
             $form->store = $this->store;
             $res = $form->getQrcode();
-            var_dump($res);die;
             if ($res['code']==0 && isset($res['data']['url'])) {
                 $member->share_img = $res['data']['url'];
             }
@@ -277,8 +277,34 @@ class MemberController extends Controller
     }
 
     //商户收入
-    public function actionShopIncome($id=0,$is_cash='') {
+    public function actionShopIncome($member_id=0,$shop_id=0,$is_cash='') {
+        $query = PintouShop::find()->where(['is_delete' => 0]);
+        if ($is_cash !== '') {
+            $query->andWhere(['is_cash'=>$is_cash]);
+        }
+        $query->andFilterWhere([
+           'member_id' =>$member_id,
+           'shop_id' => $shop_id
+        ]);
 
+        $query->orderBy('create_time DESC');
+        $count = $query->count();
+        $pagination = new Pagination([
+            'totalCount' => $count,
+        ]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
+        $dataProvider->setPagination($pagination);
+        return $this->render('shop-income', [
+            'list' => $dataProvider->getModels(),
+            'pagination' => $pagination,
+            'search' => [
+                'member_id' => $member_id,
+                'shop_id' => $shop_id,
+                'is_cash' => $is_cash
+            ],
+        ]);
     }
 
     //商户提现
