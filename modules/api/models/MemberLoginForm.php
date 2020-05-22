@@ -7,7 +7,9 @@ namespace app\modules\api\models;
 use app\models\CommissionLog;
 use app\models\Enum;
 use app\models\Member;
+use app\models\PintouShop;
 use app\models\ProjectIntention;
+use app\models\SystemMessage;
 use Yii;
 
 class MemberLoginForm extends ApiModel
@@ -63,7 +65,10 @@ class MemberLoginForm extends ApiModel
                 ])->one();
                 break;
             case 5:
-                //商户模型
+                $this->model = PintouShop::find()->andWhere([
+                    'phone' => $this->phone,
+                    'is_delete'=>0
+                ])->one();
                 break;
             default:
                 $this->addError($attribute,'请选择正确的身份类型');
@@ -175,6 +180,7 @@ class MemberLoginForm extends ApiModel
             'unsettle_amount' => empty($unsettle_amount)? "0.00" :$unsettle_amount,
             'all_amount' => empty($all_amount)? "0.00":$all_amount,
             'client_num' => $num,
+            'not_read' => SystemMessage::find()->andWhere(['member_id'=>$this->model->id,'is_delete'=>0,'is_read'=>0])->count(),
         ];
         $intention_list = ProjectIntention::find()->alias('a')
             ->select('a.phone,a.remark,a.create_time,a.type,a.status,
@@ -205,6 +211,7 @@ class MemberLoginForm extends ApiModel
             'client_num' => ProjectIntention::find()->andWhere(['nanny_id'=>$this->model->id,'is_delete'=>0])->groupBy('member_id')->count(),
             'all_income' =>empty($all_income)?"0.00":$all_income,
             'unsettled_income' => empty($unsettle)?"0.00":$unsettle,
+            'not_read' => SystemMessage::find()->andWhere(['member_id'=>$this->model->id,'is_delete'=>0,'is_read'=>0])->count(),
         ];
         return [
             'nanny_info' => $nanny_info,
@@ -230,6 +237,7 @@ class MemberLoginForm extends ApiModel
             'unsettle_amount' => empty($unsettle_amount)? "0.00" :$unsettle_amount,
             'all_amount' => empty($all_amount)? "0.00":$all_amount,
             'client_num' => $num,
+            'not_read' => SystemMessage::find()->andWhere(['member_id'=>$this->model->id,'is_delete'=>0,'is_read'=>0])->count(),
         ];
         return [
             'agent_info' => $agent_info
@@ -252,16 +260,29 @@ class MemberLoginForm extends ApiModel
             'unsettle_amount' => empty($unsettle_amount)? "0.00" :$unsettle_amount,
             'all_amount' => empty($all_amount)? "0.00":$all_amount,
             'area' => $this->model->area,
+            'not_read' => SystemMessage::find()->andWhere(['member_id'=>$this->model->id,'is_delete'=>0,'is_read'=>0])->count(),
         ];
         return [
             'partner_info' => $partner_info
         ];
     }
 
-    //获取商铺数据
+    //获取商户数据
     public function getShopData() {
+        $shop_info = [
+            'shop_id' => $this->model->id,
+            'real_name' => $this->model->real_name,
+            'phone' => $this->model->phone,
+            'shop_name' => $this->model->shop_name,
+            'collection_code' => $this->model->collection_code,
+            'role_name' => Enum::$LOGIN_TYPE[$this->type],
+            'total_income' => $this->model->totla_income,
+            'cash_amount' => '0.00',
+            'uncash_amount' => '0.00',
+            'not_read' => SystemMessage::find()->andWhere(['shop_id'=>$this->model->id,'is_delete'=>0,'is_read'=>0])->count(),
+        ];
         return [
-
+            'shop_info' => $shop_info
         ];
     }
 }

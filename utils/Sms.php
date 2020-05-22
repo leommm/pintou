@@ -260,7 +260,7 @@ class Sms
         $smsRecord->save();
         return [
             'code' => 0,
-            'msg' => '成功'
+            'msg' => '验证码已发送'
         ];
     }
 }

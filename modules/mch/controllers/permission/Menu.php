@@ -504,6 +504,39 @@ class Menu
                 ],
             ],
             [
+                'name' => '商户管理',
+                'is_menu' => true,
+                'route' => 'mch/member/shop-list',
+                'icon' => 'icon-shanghu',
+                'children' => [
+                    [
+                        'name' => '商户列表',
+                        'is_menu' => true,
+                        'route' => 'mch/member/shop-list',
+                        'sub' => [
+                            [
+                                'name' => '编辑',
+                                'is_menu' => false,
+                                'route' => 'mch/member/shop-edit',
+                            ]
+                        ],
+                    ],
+                    [
+                        'name' => '商户收入',
+                        'is_menu' => true,
+                        'route' => 'mch/member/shop-income',
+                        'sub' => [
+                            [
+                                'name' => '提现',
+                                'is_menu' => false,
+                                'route' => 'mch/member/member-cash',
+                            ]
+                        ],
+                    ],
+                ],
+            ],
+
+            [
                 'name' => '营销管理',
                 'is_menu' => true,
                 'route' => 'mch/coupon/index',

@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property integer $user_id
+ * @property integer $parent_id
  * @property integer $type
  * @property string $real_name
  * @property string $phone
@@ -38,7 +39,7 @@ class MemberApply extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'type', 'status','is_delete'], 'integer'],
+            [['user_id', 'type', 'status','is_delete','parent_id'], 'integer'],
             [['type', 'real_name', 'phone'], 'required'],
             [['create_time'], 'safe'],
             [['real_name', 'phone', 'id_card', 'shop_name', 'shop_address', 'license'], 'string', 'max' => 255],

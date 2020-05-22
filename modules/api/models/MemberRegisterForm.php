@@ -100,7 +100,7 @@ class MemberRegisterForm extends ApiModel
         if ($condition) {
             $exist = MemberApply::find()->andWhere(['is_delete'=>0,'status'=>0,'user_id'=>$this->user_id,'phone'=>$this->phone])->exists();
             if ($exist) {
-                return ['code'=>1,'msg'=>'您有待审核的认证申请','data'=>[]];
+                return ['code'=>0,'msg'=>'您有待审核的认证申请','data'=>[]];
             }
             $apply = new MemberApply();
             $apply->attributes = [

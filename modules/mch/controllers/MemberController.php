@@ -9,6 +9,7 @@ use app\models\CommissionLog;
 use app\models\Member;
 use app\models\MemberApply;
 use app\models\PintouShop;
+use app\modules\api\models\QrcodeForm;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 
@@ -147,32 +148,7 @@ class MemberController extends Controller
         return ['code'=>0,'msg'=>'结算成功'];
     }
 
-    //商户列表
-    public function actionShopList($real_name='') {
-        $query = PintouShop::find()->where(['is_delete' => 0]);
-        if ($real_name) {
-            $query->andWhere(['like','real_name',$real_name]);
-        }
-
-        $query->orderBy('create_time DESC');
-        $count = $query->count();
-        $pagination = new Pagination([
-            'totalCount' => $count,
-        ]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query
-        ]);
-        $dataProvider->setPagination($pagination);
-        return $this->render('shop-list', [
-            'list' => $dataProvider->getModels(),
-            'pagination' => $pagination,
-            'search' => [
-                'real_name' => $real_name,
-            ],
-        ]);
-    }
-
-    //认证申请
+    //认证申请列表
     public function actionApplyList($status='') {
         $query = MemberApply::find()->where(['is_delete' => 0]);
         if ($status!=='') {
@@ -206,18 +182,108 @@ class MemberController extends Controller
             if (!$member) {
                 return ['code'=>1,'msg'=>'未找到成员'];
             }
+            $form = new QrcodeForm();
+            $form->data = [
+                'scene' => "{$member->id}",
+                'page' => 'pages/registered_members/registered_members',
+                'width' => 150
+            ];
+            $form->store = $this->store;
+            $res = $form->getQrcode();
+            var_dump($res);die;
+            if ($res['code']==0 && isset($res['data']['url'])) {
+                $member->share_img = $res['data']['url'];
+            }
             $member->is_active = 1;
             $member->active_time = date('Y-m-d H:i:s');
+            $member->parent_id = $apply->parent_id;
             $member->user_id = $apply->user_id;
             $member->id_card = $apply->id_card;
             $member->bank_card = $apply->bank_card;
-            //todo 生成分享图
             $member->save();
             $msg = '已通过';
         }
         $apply->status = $status;
         $apply->save();
         return ['code'=>0,'msg'=>$msg];
+    }
+
+    //商户列表
+    public function actionShopList($is_active='',$name='') {
+        $query = PintouShop::find()->where(['is_delete' => 0]);
+        if ($is_active !== '') {
+            $query->andWhere(['is_active'=>$is_active]);
+        }
+        if ($name) {
+            $query->andWhere([
+                'or',
+                ['like','real_name',$name],
+                ['like','shop_name',$name]
+            ]);
+        }
+
+        $query->orderBy('create_time DESC');
+        $count = $query->count();
+        $pagination = new Pagination([
+            'totalCount' => $count,
+        ]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
+        $dataProvider->setPagination($pagination);
+        return $this->render('shop-list', [
+            'list' => $dataProvider->getModels(),
+            'pagination' => $pagination,
+            'search' => [
+                'name' => $name,
+                'is_active' => $is_active
+            ],
+        ]);
+    }
+
+    //商户编辑
+    public function actionShopEdit($id=0) {
+        $model = PintouShop::findOne([
+            'id' => $id,
+            'is_delete' => 0,
+        ]);
+        if(!$id) {
+            $model = new PintouShop();
+        }
+        if (\Yii::$app->request->isPost) {
+            $model->attributes = \Yii::$app->request->post();
+            //判断该手机号是否存在
+            if ($model->isNewRecord) {
+                $exist1 = PintouShop::find()->andWhere(['phone'=>$model->phone,'is_delete'=>0])->exists();
+                if ($exist1) {
+                    return ['code'=>1,'msg'=>'该手机号已被使用'];
+                }
+            }
+
+            if (!$model->save()) {
+                return new \app\hejiang\ValidationErrorResponse($model->errors);
+            }
+            return ['code'=>0,'msg'=>'保存成功'];
+
+        }
+        return $this->render('shop-edit', [
+            'model' => $model,
+        ]);
+    }
+
+    //商户删除
+    public function actionShopDelete($id) {
+
+    }
+
+    //商户收入
+    public function actionShopIncome($id=0,$is_cash='') {
+
+    }
+
+    //商户提现
+    public function actionShopCash($id) {
+
     }
 
 

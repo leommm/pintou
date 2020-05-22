@@ -42,22 +42,27 @@ class QrcodeForm extends ApiModel
         if (!in_array('Content-Type: image/jpeg', $curl->response_headers)) {
             //返回文字
             $res = json_decode($curl->response, true);
+            var_dump($res);die;
             return [
                 'code' => 1,
                 'msg' => $res['errmsg'],
             ];
         }
         //保存到本地
-        $saveRoot = \Yii::$app->basePath . '/web/temp';
+        $saveRoot = \Yii::$app->basePath . '/web/qrcode';
         $saveDir = '/';
         if (!is_dir($saveRoot . $saveDir)) {
             mkdir($saveRoot . $saveDir);
             file_put_contents($saveRoot . $saveDir . '.gitignore', "*\r\n!.gitignore");
         }
         $saveName = md5(uniqid()) . '.jpg';
-        $webRoot = str_replace('http://', 'https://', \Yii::$app->request->hostInfo . \Yii::$app->request->baseUrl . '/temp/' . $saveName);
+        $webRoot = str_replace('http://', 'https://', \Yii::$app->request->hostInfo . \Yii::$app->request->baseUrl . '/qrcode/' . $saveName);
         file_put_contents($saveRoot . $saveDir . $saveName, $curl->response);
-
+//        $form = new UploadForm();
+//        $upload_config = UploadConfig::findOne(['store_id' =>0]);
+//        $form->upload_config = $upload_config;
+//        $form->store = $this->store;
+//        return $form->saveQrcode($saveRoot . $saveDir . $saveName, $saveName);
         return [
             'code' => 0,
             'msg' => 'success',
@@ -65,10 +70,6 @@ class QrcodeForm extends ApiModel
                 'url' => $webRoot,
             ],
         ];
-        $form = new UploadForm();
-        $upload_config = UploadConfig::findOne(['store_id' =>0]);
-        $form->upload_config = $upload_config;
-        $form->store = $this->store;
-        return $form->saveQrcode($saveRoot . $saveDir . $saveName, $saveName);
+
     }
 }
