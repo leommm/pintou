@@ -181,6 +181,7 @@ class MemberLoginForm extends ApiModel
             'all_amount' => empty($all_amount)? "0.00":$all_amount,
             'client_num' => $num,
             'share_img' => $this->model->share_img,
+            'pay_code' => $this->model->pay_code,
             'not_read' => SystemMessage::find()->andWhere(['member_id'=>$this->model->id,'is_delete'=>0,'is_read'=>0])->count(),
         ];
         $intention_list = ProjectIntention::find()->alias('a')

@@ -64,7 +64,7 @@ $this->title = '商户收入';
                     <td class="text-center"><?= $item->create_time ?></td>
                     <td class="text-center">
                         <?php if (!$item->is_cash) :?>
-                            <a class="btn btn-sm btn-primary"
+                            <a class="btn btn-sm btn-primary cash-btn"
                                href="<?= $urlManager->createUrl(['mch/member/shop-cash', 'id' => $item->id])?>">提现</a>
                         <?php endif;?>
                     </td>
@@ -79,10 +79,10 @@ $this->title = '商户收入';
 </div>
 
 <script>
-    $(document).on("click", ".delete-btn", function () {
+    $(document).on("click", ".cash-btn", function () {
         var url = $(this).attr("href");
         $.confirm({
-            content: '确认删除？',
+            content: '确认提现？',
             confirm: function () {
                 $.loading();
                 $.ajax({

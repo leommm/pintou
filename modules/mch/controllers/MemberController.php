@@ -314,6 +314,10 @@ class MemberController extends Controller
 
     //商户提现
     public function actionShopCash($id) {
+        $income = ShopIncome::findOne($id);
+        $income->is_cash = 1;
+        $income->save();
+        return ['code'=>0,'msg'=>'已提现'];
 
     }
 

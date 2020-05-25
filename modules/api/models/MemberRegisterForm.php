@@ -10,6 +10,7 @@ use app\models\MemberApply;
 use app\models\PintouShop;
 use app\models\Store;
 use app\models\SystemSetting;
+use app\modules\mch\models\QrCodeService;
 
 /**
  * 用户认证逻辑层
@@ -122,17 +123,23 @@ class MemberRegisterForm extends ApiModel
             $model->user_id = $this->user_id;
             $model->active_time = date('Y-m-d H:i:s');
             $model->is_active = 1;
-            $form = new QrcodeForm();
-            $form->data = [
-                'scene' => "{$model->id}",
-                'page' => 'pages/registered_members/registered_members',
-                'width' => 150
-            ];
-            $form->store = Store::findOne(2);
-            $res = $form->getQrcode();
-            if ($res['code']==0 && isset($res['data']['url'])) {
-                $model->share_img = $res['data']['url'];
+            if ($this->type != 5) {
+                $form = new QrcodeForm();
+                $form->data = [
+                    'scene' => "{$model->id}",
+                    'page' => 'pages/registered_members/registered_members',
+                    'width' => 150
+                ];
+                $form->store = Store::findOne(2);
+                $res = $form->getQrcode();
+                if ($res['code']==0 && isset($res['data']['url'])) {
+                    $model->share_img = $res['data']['url'];
+                }
+                $model->pay_code = QrCodeService::createCode(1,$model->id);
+            }else {
+                $model->collection_code = QrCodeService::createCode(2,$model->id);
             }
+
             if ($model->save()) {
                 \Yii::$app->cache->delete('code_cache'.$this->phone);
             }
