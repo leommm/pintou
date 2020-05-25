@@ -41,7 +41,7 @@ class SystemSetting extends \yii\db\ActiveRecord
         return [
             [['first_parking', 'first_flats', 'first_shop', 'second', 'city_commission','nanny_commission', 'account_a_1', 'account_a_2', 'account_a_3', 'account_b_1', 'account_b_2', 'account_b_3'], 'number'],
             [['condition'], 'integer'],
-            [['index_info'], 'string', 'max' => 255],
+            [['index_ad'], 'string', 'max' => 255],
         ];
     }
 
@@ -65,7 +65,7 @@ class SystemSetting extends \yii\db\ActiveRecord
             'account_b_2' => 'B账户4-6年返利',
             'account_b_3' => 'A账户7-10年返利',
             'condition' => '注册会员是否需审核 0否1是',
-            'index_info' => '首页资讯',
+            'index_ad' => '首页广告位',
         ];
     }
 }

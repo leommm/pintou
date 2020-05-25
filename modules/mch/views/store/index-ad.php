@@ -52,7 +52,7 @@ $this->title = '首页广告图';
                         <input class="form-control link-input"
                                name="page"
                                readonly
-                               value="<?= $list['page_url'] ?>">
+                               value="<?= $page ?>">
                         <span class="input-group-btn">
                             <a class="btn btn-secondary pick-link-btn" href="javascript:">选择链接</a>
                         </span>
