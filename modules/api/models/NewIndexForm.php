@@ -19,7 +19,8 @@ class NewIndexForm extends ApiModel
         $data = [
             'banner_list' => $this->getBanner(),
             'project_list' => $this->getHotProject(),
-            'index_info' => Topic::find()->select('id,title')->andWhere(['is_delete'=>0,'is_chosen'=>1])->asArray()->one()
+            'index_info' => Topic::find()->select('id,title')->andWhere(['is_delete'=>0,'is_chosen'=>1])->asArray()->one(),
+            'index_ad' => SystemSetting::findOne(1)->index_ad,
         ];
         return new ApiResponse(0, 'success', $data);
     }
@@ -42,12 +43,6 @@ class NewIndexForm extends ApiModel
             }
         }
         return $ret;
-    }
-
-    //获取首页资讯
-    private function getIndexInfo() {
-        $setting = SystemSetting::findOne(1);
-        return $setting->index_info;
     }
 
 }

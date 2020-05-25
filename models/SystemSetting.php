@@ -21,7 +21,7 @@ use Yii;
  * @property string $account_b_2
  * @property string $account_b_3
  * @property integer $condition
- * @property string $index_info
+ * @property string $index_ad
  */
 class SystemSetting extends \yii\db\ActiveRecord
 {

@@ -1685,17 +1685,17 @@ class StoreController extends Controller
     public function actionIndexAd() {
         $model = SystemSetting::findOne(1);
         if (\Yii::$app->request->isPost) {
-            $model->index_info = json_encode([
+            $model->index_ad = json_encode([
                 'img_url' => \Yii::$app->request->post('img_url'),
                 'page' => \Yii::$app->request->post('page'),
             ]);
             $model->save();
             return ['code'=>0,'msg'=>'保存成功'];
         }
-        $info = json_decode($model->index_ad,true);
+        $ad = json_decode($model->index_ad,true);
         return $this->render('index-ad', [
-            'img_url' => isset($info['img_url']) ? $info['img_url'] : '',
-            'page' => isset($info['page']) ? $info['page'] : '',
+            'img_url' => isset($ad['img_url']) ? $ad['img_url'] : '',
+            'page' => isset($ad['page']) ? $ad['page'] : '',
         ]);
     }
 }
