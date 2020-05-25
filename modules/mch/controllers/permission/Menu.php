@@ -176,67 +176,9 @@ class Menu
                         ]
                     ],
                     [
-                        'name' => '导航图标',
+                        'name' => '首页广告位',
                         'is_menu' => true,
-                        'route' => 'mch/store/home-nav',
-                        'sub' => [
-                            [
-                                'name' => '导航图标(S|U)',
-                                'is_menu' => false,
-                                'route' => 'mch/store/home-nav-edit',
-                            ],
-                        ],
-                        'action' => [
-                            [
-                                'name' => '导航图标删除',
-                                'route' => 'mch/store/home-nav-del'
-                            ]
-                        ]
-                    ],
-                    [
-                        'name' => '图片魔方',
-                        'is_menu' => true,
-                        'route' => 'mch/store/home-block',
-                        'sub' => [
-                            [
-                                'name' => '图片魔方(S|U)',
-                                'is_menu' => false,
-                                'route' => 'mch/store/home-block-edit',
-                            ]
-                        ],
-                        'action' => [
-                            [
-                                'name' => '图片魔方删除',
-                                'route' => 'mch/store/home-block-delete',
-                            ]
-                        ]
-                    ],
-                    [
-                        'name' => '导航栏',
-                        'is_menu' => true,
-                        'route' => 'mch/store/navbar',
-                        'sub' => [
-                            [
-                                'name' => '导航恢复默认设置',
-                                'is_mune' => false,
-                                'route' => '/mch/store/navbar-reset'
-                            ]
-                        ]
-                    ],
-                    [
-                        'name' => '首页布局',
-                        'is_menu' => true,
-                        'route' => 'mch/store/home-page',
-                    ],
-                    [
-                        'name' => '用户中心',
-                        'is_menu' => true,
-                        'route' => 'mch/store/user-center',
-                    ],
-                    [
-                        'name' => '下单表单',
-                        'is_menu' => true,
-                        'route' => 'mch/store/form',
+                        'route' => 'mch/store/index-ad',
                     ],
                     [
                         'offline' => true,

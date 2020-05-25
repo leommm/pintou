@@ -73,387 +73,42 @@ class PickLinkForm
                 'params' => []
             ],
             [
-                'name' => "直播间列表",
-                'link' => "/live/pages/home/home",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "分类",
-                'link' => "/pages/cat/cat",
+                'name' => "项目详情",
+                'link' => "pages/projects_detail/projects_detail",
                 'open_type' => "navigate",
                 'params' => [
                     [
-                        'key' => "cat_id",
+                        'key' => "project_id",
                         'value' => "",
-                        'desc' => "cat_id请填写在商品分类中相关分类的ID"
+                        'desc' => "project_id请填写在项目中相关的ID"
                     ]
                 ]
             ],
             [
-                'name' => "购物车",
-                'link' => "/pages/cart/cart",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "会员中心",
-                'link' => "/pages/member/member",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "用户中心",
-                'link' => "/pages/user/user",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "商品列表",
-                'link' => "/pages/list/list",
+                'name' => "拼投动态列表",
+                'link' => "pages/dynamic_page/dynamic_page",
                 'open_type' => "navigate",
                 'params' => [
                     [
-                        'key' => "cat_id",
+                        'key' => "type_id",
                         'value' => "",
-                        'desc' => "cat_id请填写在商品分类中相关分类的ID"
+                        'desc' => "type_id请填写在动态分类中相关分类的ID"
                     ]
                 ]
             ],
             [
-                'name' => "商品详情",
-                'link' => "/pages/goods/goods",
+                'name' => "拼投动态详情",
+                'link' => "pages/dynamic_detail/dynamic_detail",
                 'open_type' => "navigate",
                 'params' => [
                     [
-                        'key' => "id",
+                        'key' => "detail_id",
                         'value' => "",
-                        'desc' => "id请填写在商品列表中相关商品的ID"
+                        'desc' => "detail_id请填写在动态中相关的ID"
                     ]
                 ]
             ],
-            [
-                'name' => "所有订单",
-                'link' => "/pages/order/order?status=-1",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "待付款订单",
-                'link' => "/pages/order/order?status=0",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "待发货订单",
-                'link' => "/pages/order/order?status=1",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "待收货订单",
-                'link' => "/pages/order/order?status=2",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "已完成订单",
-                'link' => "/pages/order/order?status=3",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "售后订单",
-                'link' => "/pages/order/order?status=4",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => "share",
-                'name' => "分销中心",
-                'link' => "/pages/share/index",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'coupon',
-                'name' => "我的优惠券",
-                'link' => "/pages/coupon/coupon",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "我的收藏",
-                'link' => "/pages/favorite/favorite",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "关于我们",
-                'link' => "/pages/article-detail/article-detail?id=about_us",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "服务中心",
-                'link' => "/pages/article-list/article-list?id=2",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'video',
-                'name' => "视频专区",
-                'link' => "/pages/video/video-list",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'topic',
-                'name' => "专题列表",
-                'link' => "/pages/topic-list/topic-list",
-                'open_type' => "navigate",
-                'params' => [
-                    [
-                        'key' => "type",
-                        'value' => "",
-                        'desc' => "type请填写在专题分类中的ID"
-                    ]
-                ]
-            ],
-            [
-                'sign' => 'topic',
-                'name' => "专题详情",
-                'link' => "/pages/topic/topic",
-                'open_type' => "navigate",
-                'params' => [
-                    [
-                        'key' => "id",
-                        'value' => "",
-                        'desc' => "id请填写在专题列表中相关专题的ID"
-                    ]
-                ]
-            ],
-            [
-                'sign' => 'coupon',
-                'name' => "领券中心",
-                'link' => "/pages/coupon-list/coupon-list",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "小程序（同一公众号下关联的小程序）",
-                'link' => "/",
-                'open_type' => "wxapp",
-                'params' => [
-                    [
-                        'key' => "appId",
-                        'value' => "",
-                        'desc' => "要打开的小程序 appId"
-                    ],
-                    [
-                        'key' => "path",
-                        'value' => "",
-                        'desc' => "打开的页面路径，如pages/index/index，开头请勿加“/”"
-                    ],
-                ]
-            ],
-            [
-                'sign' => 'miaosha',
-                'name' => "整点秒杀（需先安装插件）",
-                'link' => "/pages/miaosha/miaosha",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'miaosha',
-                'name' => '我的秒杀',
-                'link' => 'pages/miaosha/order/order',
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "网页链接",
-                'link' => "/pages/web/web",
-                'open_type' => "navigate",
-                'params' => [
-                    [
-                        'key' => "url",
-                        'value' => "",
-                        'desc' => "打开的网页链接（注：域名必须已在微信官方小程序平台设置业务域名）",
-                    ]
-                ],
-            ],
-            [
-                'name' => "门店列表",
-                'link' => "/pages/shop/shop",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'pintuan',
-                'name' => "拼团",
-                'link' => "/pages/pt/index/index",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'pintuan',
-                'name' => "我的拼团",
-                'link' => "/pages/pt/order/order",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'pintuan',
-                'name' => "拼团详情",
-                'link' => "/pages/pt/details/details",
-                'open_type' => "navigate",
-                'params' => [
-                    [
-                        'key' => "gid",
-                        'value' => "",
-                        'desc' => "gid请填写拼团商品列表的商品ID"
-                    ]
-                ],
-            ],
-            [
-                'sign' => 'pintuan',
-                'name' => "拼团分类",
-                'link' => "/pages/pt/index/index",
-                'open_type' => "navigate",
-                'params' => [
-                    [
-                        'key' => "cid",
-                        'value' => "",
-                        'desc' => "cid请填写拼团商品列表的分类ID，为空则跳转地址为 拼团"
-                    ]
-                ],
-            ],
-            [
-                'sign' => 'book',
-                'name' => "预约详情",
-                'link' => "/pages/book/details/details",
-                'open_type' => "navigate",
-                'params' => [
-                    [
-                        'key' => "id",
-                        'value' => "",
-                        'desc' => "ID请填写预约商品列表的商品ID"
-                    ]
-                ],
-            ],
-            [
-                'sign' => 'book',
-                'name' => '我的预约',
-                'url' => '/pages/book/order/order',
-                'params' => []
-            ],
-            [
-                'sign' => 'book',
-                'name' => "预约分类",
-                'link' => "/pages/book/index/index",
-                'open_type' => "navigate",
-                'params' => [
-                    [
-                        'key' => "cid",
-                        'value' => "",
-                        'desc' => "cid请填写预约商品列表的分类ID,为空则跳转地址为 预约"
-                    ]
-                ],
-            ],
-            [
-                'name' => "快速购买",
-                'link' => "/pages/quick-purchase/index/index",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'fxhb',
-                'name' => "裂变拆红包",
-                'link' => "/pages/fxhb/open/open",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "充值",
-                'link' => "/pages/recharge/recharge",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'mch',
-                'name' => "好店推荐",
-                'link' => "/mch/shop-list/shop-list",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'mch',
-                'name' => "多商户店铺",
-                'link' => "/mch/shop/shop",
-                'open_type' => "navigate",
-                'params' => [
-                    [
-                        'key' => "mch_id",
-                        'value' => "",
-                        'desc' => "mch_id 请填写入驻商户ID",
-                        'required' => 'required'
-                    ]
-                ],
-            ],
-            [
-                'sign' => 'mch',
-                'name' => "入驻商",
-                'link' => "/mch/m/myshop/myshop",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'integralmall',
-                'name' => "积分商城",
-                'link' => "/pages/integral-mall/index/index",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'integralmall',
-                'name' => "签到",
-                'link' => "/pages/integral-mall/register/index",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "搜索页",
-                'link' => "/pages/search/search",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'pond',
-                'name' => "九宫格抽奖",
-                'link' => "/pond/pond/pond",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'sign' => 'scratch',
-                'name' => "刮刮卡",
-                'link' => "/scratch/index/index",
-                'open_type' => "navigate",
-                'params' => []
-            ],
-            [
-                'name' => "我的订单",
-                'link' => "/pages/order/order",
-                'open_type' => "navigate",
-                'params' => [
-                    [
-                        'key' => "status",
-                        'value' => 0,
-                        'desc' => "status 请填写订单列表状态, 为空则跳转为 待付款",
-                    ]
-                ],
-            ],
+
         ];
     }
 

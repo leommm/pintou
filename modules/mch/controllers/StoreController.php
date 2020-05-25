@@ -1681,4 +1681,18 @@ class StoreController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionIndexAd() {
+        $model = SystemSetting::findOne(1);
+        if (\Yii::$app->request->isPost) {
+            $model->index_info = json_encode(\Yii::$app->request->post());
+            $model->save();
+            return ['code'=>0,'msg'=>'保存成功'];
+        }
+        $info = json_decode($model->index_info,true);
+        return $this->render('index-ad', [
+            'img_url' => isset($info['img_url']) ? $info['img_url'] : '',
+            'page' => isset($info['page']) ? $info['page'] : '',
+        ]);
+    }
 }

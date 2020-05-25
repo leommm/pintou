@@ -8,15 +8,6 @@ $this->title = '系统设置';
     <div class="panel-header"><?= $this->title ?></div>
     <div class="panel-body">
         <form method="post" class="auto-form" action="<?php echo $urlManager->createUrl(['/mch/store/system-setting'])?>">
-            <div class="form-group row">
-                <div class="form-group-label col-sm-4 text-right">
-                    <label class="col-form-label">首页资讯</label>
-                </div>
-                <div class="col-sm-5">
-                    <input class="form-control" type="text" name="index_info"
-                           value="<?= $model->index_info ?>">
-                </div>
-            </div>
 
             <div class="form-group row">
                 <div class="form-group-label col-sm-4 text-right">
