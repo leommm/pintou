@@ -81,14 +81,21 @@ $this->title = '意向列表';
                     </td>
                     <td class="text-center"><?= $item->create_time ?></td>
                     <td class="text-center">
+                        <?php if ($item->status==1): ?>
+                            <a class="btn btn-sm btn-primary apply-btn" style="margin-bottom: 5px"
+                               href="<?= $urlManager->createUrl(['mch/project/intention-apply', 'id' => $item->id,'status'=>2]) ?>">通过</a>
+                            <a class="btn btn-sm btn-danger apply-btn" style="margin-bottom: 5px"
+                               href="<?= $urlManager->createUrl(['mch/project/intention-apply', 'id' => $item->id,'status'=>4]) ?>">驳回</a>
+                            <br>
+                        <?php endif;?>
                         <a class="btn btn-sm btn-primary"
                            href="<?= $urlManager->createUrl(['mch/project/intention-edit', 'id' => $item->id]) ?>">编辑</a>
                         <a class="btn btn-sm btn-danger delete-btn"
                            href="<?= $urlManager->createUrl(['mch/project/intention-delete', 'id' => $item->id]) ?>">删除</a>
                         <br>
+                        <?php if ($item->status==3):?>
                         <a class="btn btn-sm btn-info" style="margin-top: 5px"
                            href="<?= $urlManager->createUrl(['mch/project/intention-follow', 'id' => $item->id]) ?>">跟进记录</a>
-                        <?php if ($item->status==3):?>
                             <br>
                             <a class="btn btn-sm btn-warning" style="margin-top: 5px"
                                href="<?= $urlManager->createUrl(['mch/project/member-income', 'id' => $item->id]) ?>">返利记录</a>
@@ -116,6 +123,31 @@ $this->title = '意向列表';
                     dataType: "json",
                     success: function (res) {
                         location.reload();
+                    }
+                });
+            }
+        });
+        return false;
+    });
+
+    $(document).on("click", ".apply-btn", function () {
+        var url = $(this).attr("href");
+        var content = '确认'+$(this).text()+'？';
+        $.confirm({
+            content: content,
+            confirm: function () {
+                $.loading();
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    success: function (res) {
+                        $.myAlert({
+                            content:res.msg
+                        });
+                        if(res.code==0) {
+                            location.reload();
+                        }
+                        $.loadingHide()
                     }
                 });
             }

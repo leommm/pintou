@@ -8,6 +8,7 @@ use app\hejiang\ApiResponse;
 use app\models\Banner;
 use app\models\Project;
 use app\models\SystemSetting;
+use app\models\Topic;
 use yii\db\Expression;
 
 class NewIndexForm extends ApiModel
@@ -18,7 +19,7 @@ class NewIndexForm extends ApiModel
         $data = [
             'banner_list' => $this->getBanner(),
             'project_list' => $this->getHotProject(),
-            'index_info' => $this->getIndexInfo()
+            'index_info' => Topic::find()->select('id,title')->andWhere(['is_delete'=>0,'is_chosen'=>1])->asArray()->one()
         ];
         return new ApiResponse(0, 'success', $data);
     }

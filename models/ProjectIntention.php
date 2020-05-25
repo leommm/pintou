@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 
 /**
  * This is the model class for table "cshopmall_project_intention".
@@ -25,6 +24,7 @@ use Yii;
  * @property integer $status
  * @property string $create_time
  * @property string $deal_time
+ * @property integer $is_delete
  */
 class ProjectIntention extends \yii\db\ActiveRecord
 {
@@ -43,7 +43,7 @@ class ProjectIntention extends \yii\db\ActiveRecord
     {
         return [
             [['member_id', 'project_id', 'real_name', 'phone', 'type','stage'], 'required'],
-            [['member_id', 'project_id', 'nanny_id', 'status','is_delete','stage'], 'integer'],
+            [['member_id', 'project_id', 'nanny_id', 'status','is_delete','stage','is_delete'], 'integer'],
             [['parking_money', 'flats_money', 'shop_money'], 'number'],
             [['create_time', 'deal_time'], 'safe'],
             [['real_name', 'remark'], 'string', 'max' => 255],

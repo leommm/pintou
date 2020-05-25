@@ -15,6 +15,7 @@ use Yii;
  * @property integer $is_read
  * @property integer $is_delete
  * @property string $create_time
+ * @property integer $type
  */
 class SystemMessage extends \yii\db\ActiveRecord
 {
@@ -33,7 +34,7 @@ class SystemMessage extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'content'], 'required'],
-            [['member_id', 'shop_id', 'is_read', 'is_delete'], 'integer'],
+            [['member_id', 'shop_id', 'is_read', 'is_delete','type'], 'integer'],
             [['create_time'], 'safe'],
             [['title', 'content'], 'string', 'max' => 255],
         ];
@@ -54,5 +55,13 @@ class SystemMessage extends \yii\db\ActiveRecord
             'is_delete' => 'Is Delete',
             'create_time' => 'Create Time',
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if ($this->isNewRecord) {
+            $this->create_time = date('Y-m-d H:i:s');
+        }
+        return parent::beforeSave($insert);
     }
 }

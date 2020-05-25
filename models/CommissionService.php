@@ -73,11 +73,15 @@ class CommissionService
         //开启事务
         $transaction  = \Yii::$app->db->beginTransaction();
         try {
+            //给会员发送消息
+            MessageService::createMsg($this->intention->member_id,1,'您的'.$this->intention->project->title . '拼投成功');
+
             //保姆分佣
             $nanny_commission_amount = bcmul($this->sum_money,$this->nanny_commission,2);
             $this->createLog($this->intention->nanny_id,6,$nanny_commission_amount);
             $this->intention->nanny->account_c += $nanny_commission_amount;
             $this->intention->nanny->save();
+            MessageService::createMsg($this->intention->nanny_id,2,'您跟进的'.$this->intention->project->title . '拼投成功');
 
             //上级分佣
             if ($this->intention->member->parent_id) {
@@ -104,6 +108,7 @@ class CommissionService
                 $this->createLog($city_member->id,5,$city_commission_amount);
                 $city_member->account_c += $city_commission_amount;
                 $city_member->save();
+                MessageService::createMsg($city_member->id,4,'您的区域内有新项目拼投成功');
             }
         } catch (\Exception $e) {
             $transaction->rollBack();
@@ -122,10 +127,6 @@ class CommissionService
             'amount' => $amount
         ];
         return $log->save();
-    }
-
-    private function createMsg() {
-        $msg = new SystemMessage();
     }
 
 }

@@ -46,17 +46,21 @@ $this->title = '商户收入';
                     <td>
                         <p>店铺名称：<?=$item->shop->shop_name?></p>
                         <p>店主名称：<?=$item->shop->real_name?></p>
+                        <p>联系电话：<?=$item->shop->phone?></p>
+
                     </td>
 
                     <td>
-                        <p>姓名：<?=$item->real_name?></p>
-                        <p>手机号：<?=$item->phone?></p>
+                        <p>姓名：<?=$item->member->real_name?></p>
+                        <p>手机号：<?=$item->member->phone?></p>
                     </td>
 
                     <td class="text-center">
                         <p><?=$item->amount?></p>
                     </td>
-
+                    <td class="text-center">
+                        <p><?=$item->is_cash? '已提现':'未提现' ?></p>
+                    </td>
                     <td class="text-center"><?= $item->create_time ?></td>
                     <td class="text-center">
                         <?php if (!$item->is_cash) :?>

@@ -10,7 +10,7 @@ namespace app\modules\api\models;
 
 use app\hejiang\ApiResponse;
 use app\models\Topic;
-use app\utils\Hepler;
+use app\utils\Helper;
 use yii\data\Pagination;
 use app\models\TopicType;
 
@@ -64,6 +64,6 @@ class TopicListForm extends ApiModel
             unset($list[$i]['addtime']);
             $list[$i]['read_count'] = $read_count;
         }
-        return new ApiResponse(0, 'success', ['is_next' => Hepler::judgeNext($this->page,$this->limit,$count),'list'=>$list]);
+        return new ApiResponse(0, 'success', ['is_next' => Helper::judgeNext($this->page,$this->limit,$count),'list'=>$list]);
     }
 }

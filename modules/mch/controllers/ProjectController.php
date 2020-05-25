@@ -8,6 +8,7 @@ use app\models\Enum;
 use app\models\IntentionFollow;
 use app\models\Member;
 use app\models\MemberIncome;
+use app\models\MessageService;
 use app\models\Project;
 use app\models\ProjectIntention;
 use yii\data\ActiveDataProvider;
@@ -125,9 +126,26 @@ class ProjectController extends Controller
         ]);
     }
 
-    //意向删除
-    public function actionIntentionDelete() {
+    //意向审核
+    public function actionIntentionApply($id,$status) {
+        $intention = ProjectIntention::findOne($id);
+        $intention->status = $status;
+        if ($status == 2) {
+            if (!$intention->nanny_id) {
+                return ['code'=>1,'msg'=>'请先为该意向分配保姆'];
+            }
+        }
+        $intention->save();
+        return ['code'=>0,'msg'=>'操作成功'];
 
+    }
+
+    //意向删除
+    public function actionIntentionDelete($id) {
+        $intention = ProjectIntention::findOne($id);
+        $intention->is_delete = 1;
+        $intention->save();
+        return ['code'=>0,'msg'=>'已删除'];
     }
 
     //ajax 请求项目
@@ -216,7 +234,9 @@ class ProjectController extends Controller
         if (!$model->save()) {
             return new \app\hejiang\ValidationErrorResponse($model->errors);
         }
+        MessageService::createMsg($model->member_id,1,'您拼投的'.$model->intention->project->title . '收益已到账');
         return ['code'=>0,'msg'=>'添加成功'];
     }
+
 
 }

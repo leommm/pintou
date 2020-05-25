@@ -280,7 +280,7 @@ class MemberController extends Controller
     }
 
     //商户收入
-    public function actionShopIncome($member_id=0,$shop_id=0,$is_cash='') {
+    public function actionShopIncome($member_id=null,$shop_id=null,$is_cash='') {
         $query = ShopIncome::find();
         if ($is_cash !== '') {
             $query->andWhere(['is_cash'=>$is_cash]);

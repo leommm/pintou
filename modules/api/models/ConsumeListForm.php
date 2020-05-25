@@ -11,10 +11,10 @@ use yii\data\Pagination;
 
 class ConsumeListForm extends ApiModel
 {
-    public $member_id=0;
-    public $shop_id=0;
+    public $member_id=null;
+    public $shop_id=null;
     public $page=1;
-    public $limit=0;
+    public $limit=10;
 
     public function rules()
     {
@@ -28,9 +28,9 @@ class ConsumeListForm extends ApiModel
             return $this->getErrorResponse();
         }
         $query = ShopIncome::find()->alias('a')
-            ->joinWith('member as b')
-            ->joinWith('shop as c')
-            ->select('a.id,a.real_name,b.shop_name,a.amount,a.create_time')
+            ->joinWith('member as b',false)
+            ->joinWith('shop as c',false)
+            ->select('a.id,b.real_name as member_name,c.shop_name,a.amount,a.create_time')
             ->andFilterWhere(['a.member_id'=>$this->member_id,'shop_id'=>$this->shop_id]);
         $count = $query->count();
 
