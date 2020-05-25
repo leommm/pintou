@@ -1698,4 +1698,19 @@ class StoreController extends Controller
             'page' => isset($ad['page']) ? $ad['page'] : '',
         ]);
     }
+
+    public function actionProtocol() {
+        $model = SystemSetting::findOne(1);
+        if (\Yii::$app->request->isPost) {
+            $model->about_us = \Yii::$app->request->post('about_us');
+            $model->pt_introduce = \Yii::$app->request->post('pt_introduce');
+            $model->register_info = \Yii::$app->request->post('register_info');
+            $model->save();
+            return ['code'=>0,'msg'=>'保存成功'];
+        }
+
+        return $this->render('protocol', [
+            'model' => $model
+        ]);
+    }
 }

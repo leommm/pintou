@@ -30,8 +30,8 @@ class ShopIncome extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'shop_id', 'member_id', 'amount'], 'required'],
-            [['id', 'shop_id', 'member_id', 'is_cash'], 'integer'],
+            [['shop_id', 'member_id', 'amount'], 'required'],
+            [['shop_id', 'member_id', 'is_cash'], 'integer'],
             [['amount'], 'number'],
             [['create_time'], 'safe'],
         ];
@@ -57,9 +57,6 @@ class ShopIncome extends \yii\db\ActiveRecord
     {
         if ($this->isNewRecord) {
             $this->create_time = date('Y-m-d H:i:s');
-            $shop = PintouShop::findOne($this->shop_id);
-            $shop->total_income += floatval($this->amount);
-            $shop->save();
         }
         return parent::beforeSave($insert);
     }

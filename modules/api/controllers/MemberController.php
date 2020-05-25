@@ -8,6 +8,7 @@ use app\modules\api\behaviors\LoginBehavior;
 use app\modules\api\models\ConsumeListForm;
 use app\modules\api\models\MemberIncomeForm;
 use app\modules\api\models\MemberLoginForm;
+use app\modules\api\models\MemberPayForm;
 use app\modules\api\models\MemberRegisterForm;
 use app\utils\Sms;
 
@@ -50,6 +51,17 @@ class MemberController extends Controller
         $form = new ConsumeListForm();
         $form->attributes = \Yii::$app->request->post();
         return $form->search();
+    }
+
+    /**
+     * 扫码消费
+     * @return BaseApiResponse
+     * @throws \yii\db\Exception
+     */
+    public function actionPay() {
+        $form = new MemberPayForm();
+        $form->attributes = \Yii::$app->request->post();
+        return new BaseApiResponse($form->pay());
     }
 
 }

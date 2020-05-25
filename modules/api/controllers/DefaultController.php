@@ -7,8 +7,10 @@
  */
 
 namespace app\modules\api\controllers;
+
 use app\modules\api\models\LiveForm;
 use app\modules\api\models\NewIndexForm;
+use app\modules\api\models\ProtocolForm;
 use Yii;
 use app\hejiang\ApiResponse;
 use app\hejiang\BaseApiResponse;
@@ -49,7 +51,7 @@ use yii\data\Pagination;
 use yii\helpers\VarDumper;
 use app\modules\api\models\TopicTypeForm;
 
-    class DefaultController extends Controller
+class DefaultController extends Controller
 {
     public function behaviors()
     {
@@ -67,10 +69,22 @@ use app\modules\api\models\TopicTypeForm;
         $form = new NewIndexForm();
         return $form->search();
     }
-    public function actionGetLive(){
-        $form=new LiveForm();
+
+    public function actionGetLive()
+    {
+        $form = new LiveForm();
         return $form->getLiveList();
     }
+
+    /**
+     *获取协议
+     */
+    public function actionProtocol() {
+        $form = new ProtocolForm();
+        $form->attributes = Yii::$app->request->post();
+        return $form->search();
+    }
+
     /**
      * 分类列表
      */
@@ -115,7 +129,7 @@ use app\modules\api\models\TopicTypeForm;
         $form->attributes = \Yii::$app->request->get();
         $form->type = \Yii::$app->request->get('type');
         $form->p = \Yii::$app->request->get('p');
-         $form->user_id = \Yii::$app->user->id;
+        $form->user_id = \Yii::$app->user->id;
         $form->store_id = $this->store->id;
         return $form->search();
     }
@@ -233,10 +247,10 @@ use app\modules\api\models\TopicTypeForm;
     }
 
     //文章列表
-    public function actionArticleList($page=1,$limit=10)
+    public function actionArticleList($page = 1, $limit = 10)
     {
 
-        $query=Article::find()->where([
+        $query = Article::find()->where([
             'store_id' => $this->store->id,
             'is_delete' => 0,
             'article_cat_id' => \Yii::$app->request->get('cat_id'),
@@ -247,8 +261,8 @@ use app\modules\api\models\TopicTypeForm;
             ->limit($pagination->limit)->offset($pagination->offset)
             ->select('id,title,content,image,addtime,detail')->asArray()->all();
 
-        return new BaseApiResponse(['code'=>0,'msg'=>"操作成功", 'data' => [
-            'row_count' => $count,+
+        return new BaseApiResponse(['code' => 0, 'msg' => "操作成功", 'data' => [
+            'row_count' => $count, +
             'page_count' => $pagination->pageCount,
             'list' => $list,
         ]]);
@@ -334,7 +348,7 @@ use app\modules\api\models\TopicTypeForm;
         return $form->search();
     }
 
-        //专题详情
+    //专题详情
     public function actionTopic()
     {
         $form = new TopicForm();
@@ -428,22 +442,27 @@ use app\modules\api\models\TopicTypeForm;
         $form->attributes = \Yii::$app->request->get();
         return $form->search();
     }
+
     //我关注的店铺
-    public function actionShoption(){
-            $form = new ShopListForm();
-            $form->store_id = $this->store->id;
-            $form->user_id = \Yii::$app->user->id;
-            return $form->attention();
+    public function actionShoption()
+    {
+        $form = new ShopListForm();
+        $form->store_id = $this->store->id;
+        $form->user_id = \Yii::$app->user->id;
+        return $form->attention();
     }
+
     //关注店铺
-     public function actionPayshop(){
-            $form = new ShopListForm();
-            $form ->shop_id = \Yii::$app->request->get('shop_id');
-            $form ->type = \Yii::$app->request->get('type');
-            $form->user_id = \Yii::$app->user->id;
+    public function actionPayshop()
+    {
+        $form = new ShopListForm();
+        $form->shop_id = \Yii::$app->request->get('shop_id');
+        $form->type = \Yii::$app->request->get('type');
+        $form->user_id = \Yii::$app->user->id;
 //            var_dump(\Yii::$app->user->id);exit;
-            return $form->payshop();
+        return $form->payshop();
     }
+
     //门店详情
     public function actionShopDetail()
     {
@@ -467,19 +486,20 @@ use app\modules\api\models\TopicTypeForm;
     }
 
 
-
     //将商品添加到历史记录
-    public function actionPaygoods(){
+    public function actionPaygoods()
+    {
         $form = new SearchForm();
         $form->user_id = \Yii::$app->user->id;
-        $form->goods_id=\Yii::$app->request->get('goods_id');
-         return $form->paygoods();
+        $form->goods_id = \Yii::$app->request->get('goods_id');
+        return $form->paygoods();
 
 
     }
 
-     //浏览记录商品列表
-    public function actionVisitlist(){
+    //浏览记录商品列表
+    public function actionVisitlist()
+    {
         $form = new SearchForm();
         $form->attributes = \Yii::$app->request->get();
         $form->user_id = \Yii::$app->user->id;
@@ -487,24 +507,28 @@ use app\modules\api\models\TopicTypeForm;
 
 
     }
+
     //商户商品列表
-    public function actionMchGoods(){
+    public function actionMchGoods()
+    {
         $form = new SearchForm();
         $form->attributes = \Yii::$app->request->get();
         $form->store_id = $this->store->id;
-        $form->type=\Yii::$app->request->get('type');
-        $form->is_sale=\Yii::$app->request->get('is_sale')?\Yii::$app->request->get('is_sale'):0;
-        $form->mch_id=\Yii::$app->request->get('mch_id');
-        $form->cat_id=\Yii::$app->request->get('cat_id');
+        $form->type = \Yii::$app->request->get('type');
+        $form->is_sale = \Yii::$app->request->get('is_sale') ? \Yii::$app->request->get('is_sale') : 0;
+        $form->mch_id = \Yii::$app->request->get('mch_id');
+        $form->cat_id = \Yii::$app->request->get('cat_id');
         return $form->getMchGoods();
     }
+
     //获取店铺视频
-    public function actionMchVideo(){
-        $form=new ShopForm();
-        $form->store_id=$this->store->id;
-        $form->mch_id=\Yii::$app->request->get('mch_id');
-        $form->page=\Yii::$app->request->get('page');
-        $form->cat_id=\Yii::$app->request->get('cat_id');
+    public function actionMchVideo()
+    {
+        $form = new ShopForm();
+        $form->store_id = $this->store->id;
+        $form->mch_id = \Yii::$app->request->get('mch_id');
+        $form->page = \Yii::$app->request->get('page');
+        $form->cat_id = \Yii::$app->request->get('cat_id');
         return $form->getvideo();
     }
 }

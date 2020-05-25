@@ -31,123 +31,14 @@ class Menu
                         'route' => 'mch/store/wechat-setting',
                     ],
                     [
-                        'name' => '商城设置',
-                        'is_menu' => true,
-                        'route' => 'mch/store/setting',
-                    ],
-                    [
-                        'name' => '模板消息',
-                        'is_menu' => true,
-                        'route' => 'mch/store/tpl-msg',
-                    ],
-                    [
                         'name' => '短信通知',
                         'is_menu' => true,
                         'route' => 'mch/store/sms',
                     ],
                     [
-                        'name' => '邮件通知',
+                        'name' => '协议配置',
                         'is_menu' => true,
-                        'route' => 'mch/store/mail',
-                    ],
-                    [
-                        'name' => '运费规则',
-                        'is_menu' => true,
-                        'route' => 'mch/store/postage-rules',
-                        'sub' => [
-                            [
-                                'name' => '运费规则(S|U)',
-                                'is_menu' => false,
-                                'route' => 'mch/store/postage-rules-edit'
-                            ]
-                        ],
-                        'action' => [
-                            [
-                                'name' => '运费规则状态(U)',
-                                'route' => 'mch/store/postage-rules-set-enable',
-                            ],
-                            [
-                                'name' => '运费规则删除',
-                                'route' => 'mch/store/postage-rules-delete',
-                            ],
-                        ]
-                    ],
-                    [
-                        'name' => '包邮规则',
-                        'is_menu' => true,
-                        'route' => 'mch/store/free-delivery-rules',
-                        'sub' => [
-                            [
-                                'name' => '包邮规则(S|U)',
-                                'is_menu' => false,
-                                'route' => 'mch/store/free-delivery-rules-edit'
-                            ],
-                        ],
-                        'action' => [
-                            [
-                                'name' => '包邮规则删除',
-                                'route' => 'mch/store/free-delivery-rules-delete',
-                            ],
-                        ]
-                    ],
-                    [
-                        'name' => '快递单打印',
-                        'is_menu' => true,
-                        'route' => 'mch/store/express',
-                        'sub' => [
-                            [
-                                'name' => '快递单打印(S|U)',
-                                'is_menu' => false,
-                                'route' => 'mch/store/express-edit',
-                            ]
-                        ],
-                        'action' => [
-                            [
-                                'name' => '快递打印单删除',
-                                'route' => 'mch/store/express-del',
-                            ],
-                        ]
-                    ],
-                    [
-                        'name' => '小票打印',
-                        'is_menu' => true,
-                        'route' => 'mch/printer/list',
-                        'sub' => [
-                            [
-                                'name' => '小票打印设置',
-                                'is_menu' => false,
-                                'route' => 'mch/printer/setting',
-                            ],
-                            [
-                                'name' => '小票打印编辑',
-                                'is_menu' => false,
-                                'route' => 'mch/printer/edit',
-                            ]
-                        ],
-                    ],
-                    [
-                        'name' => '区域限制购买',
-                        'is_menu' => true,
-                        'route' => 'mch/store/territorial-limitation',
-                        'sub' => [
-                            [
-                                'name' => '区域限制购买(S|U)',
-                                'is_menu' => false,
-                                'route' => 'mch/store/territorial-limitation'
-                            ],
-                        ],
-                    ],
-                    [
-                        'name' => '起送规则',
-                        'is_menu' => true,
-                        'route' => 'mch/store/offer-price-edit',
-                        'sub' => [
-                            [
-                                'name' => '起送规则(S|U)',
-                                'is_menu' => false,
-                                'route' => 'mch/store/offer-price-edit',
-                            ],
-                        ],
+                        'route' => 'mch/store/protocol',
                     ],
                 ],
             ],
