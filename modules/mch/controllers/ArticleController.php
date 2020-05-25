@@ -13,25 +13,15 @@ use app\modules\mch\models\Model;
 
 class ArticleController extends Controller
 {
-    public function actionIndex($cat_id = 1)
+    public function actionIndex()
     {
         $list = Article::find()->where([
             'store_id' => $this->store->id,
-            'article_cat_id' => $cat_id,
             'is_delete' => 0,
         ])->orderBy('sort ASC,addtime DESC')->all();
 
-        if (empty($list) && $cat_id == 1) {
-            $item = new Article();
-            $item->article_cat_id = 1;
-            $item->title = '关于我们';
-            $list[] = $item;
-        }
-//                echo "<pre>";
-//        var_dump($list);exit;
         return $this->render('index', [
             'list' => $list,
-            'cat_id' => $cat_id,
         ]);
     }
 

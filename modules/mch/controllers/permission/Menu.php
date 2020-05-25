@@ -458,24 +458,6 @@ class Menu
                             ],
                         ],
                     ],
-                    [
-                        'name' => '文章',
-                        'is_menu' => true,
-                        'route' => 'mch/article/index',
-                        'sub' => [
-                            [
-                                'name' => '文章(S|U)',
-                                'is_menu' => false,
-                                'route' => 'mch/article/edit',
-                            ]
-                        ],
-                        'action' => [
-                            [
-                                'name' => '文章删除',
-                                'route' => 'mch/article/delete',
-                            ]
-                        ]
-                    ],
                 ],
             ],
 

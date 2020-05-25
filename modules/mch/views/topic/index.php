@@ -7,7 +7,7 @@ defined('YII_ENV') or exit('Access Denied');
  * Time: 16:52
  */
 $urlManager = Yii::$app->urlManager;
-$this->title = '专题';
+$this->title = '动态';
 $this->params['active_nav_group'] = 8;
 ?>
 <style>
@@ -24,7 +24,7 @@ $this->params['active_nav_group'] = 8;
         <span><?= $this->title ?></span>
         <ul class="nav nav-right">
             <li class="nav-item">
-                <a class="nav-link" href="<?= $urlManager->createUrl(['mch/topic/edit']) ?>">添加专题</a>
+                <a class="nav-link" href="<?= $urlManager->createUrl(['mch/topic/edit']) ?>">添加动态</a>
             </li>
         </ul>
     </div>
@@ -56,7 +56,6 @@ $this->params['active_nav_group'] = 8;
                 <th>专题</th>
                 <th>是否精选</th>
                 <th class="text-center">排序</th>
-                <th class="text-center">布局方式</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
@@ -80,7 +79,6 @@ $this->params['active_nav_group'] = 8;
                         <?php if( ($item['is_chosen']) == 1 ): ?>精选<?php else: ?>不精选<?php endif; ?>
                     </td>
                     <td class="text-center"><?= $item['sort'] ?></td>
-                    <td class="text-center"><?= $item['layout'] == 0 ? '小图模式' : '大图模式' ?></td>
                     <td class="text-center">
                         <div class="mb-2">
                             <a class="btn btn-sm btn-primary"

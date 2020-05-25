@@ -6,29 +6,12 @@ defined('YII_ENV') or exit('Access Denied');
  * Date: 2017/6/19
  * Time: 16:52
  */
-$cat = [
-    1 => '关于我们',
-    2 => '服务中心',
-];
-$cat_id = Yii::$app->request->get('cat_id', 2);
 $urlManager = Yii::$app->urlManager;
 $this->title = $cat[$cat_id];
 $returnUrl = Yii::$app->request->referrer;
 if (!$returnUrl) {
-    $returnUrl = $urlManager->createUrl(['mch/article/index', 'cat_id' => $cat_id]);
+    $returnUrl = $urlManager->createUrl(['mch/article/index']);
 }
-$this->params['page_navs'] = [
-    [
-        'name' => '关于我们',
-        'active' => $cat_id == 1,
-        'url' => $urlManager->createUrl(['mch/article/index', 'cat_id' => 1,]),
-    ],
-    [
-        'name' => '服务中心',
-        'active' => $cat_id == 2,
-        'url' => $urlManager->createUrl(['mch/article/index', 'cat_id' => 2,]),
-    ],
-];
 ?>
 
 <div class="panel mb-3">

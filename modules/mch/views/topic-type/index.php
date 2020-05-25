@@ -9,7 +9,7 @@ use yii\widgets\LinkPager;
  * Time: 16:52
  */
 $urlManager = Yii::$app->urlManager;
-$this->title = '专题分类';
+$this->title = '动态分类';
 $this->params['active_nav_group'] = 8;
 ?>
 <style>
@@ -26,7 +26,7 @@ $this->params['active_nav_group'] = 8;
         <span><?= $this->title ?></span>
         <ul class="nav nav-right">
             <li class="nav-item">
-                <a class="nav-link" href="<?= $urlManager->createUrl(['mch/topic-type/edit']) ?>">添加专题分类</a>
+                <a class="nav-link" href="<?= $urlManager->createUrl(['mch/topic-type/edit']) ?>">添加动态分类</a>
             </li>
         </ul>
     </div>

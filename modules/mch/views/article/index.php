@@ -62,8 +62,6 @@ $this->params['page_navs'] = [
                             <a class="btn btn-sm btn-primary copy"
                                data-clipboard-text="/pages/article-detail/article-detail?id=<?= $item->id ?>"
                                href="javascript:" hidden>复制链接</a>
-                            <a class="btn btn-sm btn-danger article-delete"
-                               href="<?= $urlManager->createUrl(['mch/article/delete', 'id' => $item->id]) ?>">删除</a>
                         <?php else : ?>
                             <a class="btn btn-sm btn-primary copy"
                                data-clipboard-text="/pages/article-detail/article-detail?id=about_us"
@@ -75,23 +73,3 @@ $this->params['page_navs'] = [
         </table>
     </div>
 </div>
-
-<script>
-    $(document).on("click", ".article-delete", function () {
-        var href = $(this).attr("href");
-        $.confirm({
-            content: "确认删除？",
-            confirm: function () {
-                $.loading();
-                $.ajax({
-                    url: href,
-                    dataType: "json",
-                    success: function (res) {
-                        location.reload();
-                    }
-                });
-            }
-        });
-        return false;
-    });
-</script>
