@@ -13,7 +13,7 @@ class MessageController extends Controller
 {
     public function actionList() {
         $form = new MessageListForm();
-        $form->attributes = \Yii::$app->request->get();
+        $form->attributes = \Yii::$app->request->post();
         return $form->search();
     }
 

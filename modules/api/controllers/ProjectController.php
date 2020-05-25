@@ -136,26 +136,5 @@ class ProjectController extends Controller
 
     }
 
-    public function actionTest() {
-        header("Content-type:text/html;charset=utf-8");
-        include \Yii::$app->basePath . '/extensions/phpqrcode/phpqrcode.php';
-        $value = [
-            'shop_id'=>1
-        ];
-        $errorCorrectionLevel = 'L';//容错级别
-
-        $matrixPointSize = 6;//生成图片大小
-
-//生成二维码图片
-
-        \QRcode::png($value, './qrcode.png', $errorCorrectionLevel, $matrixPointSize, 2);die;
-
-//        $logo = 'logo.png';//准备好的logo图片
-//
-//        $QR = './qrcode.png';//已经生成的原始二维码图
-//        echo '<img src="qrcode.png">';
-    }
-
-
 
 }

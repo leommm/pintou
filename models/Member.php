@@ -28,6 +28,8 @@ use Yii;
  * @property string $account_c
  * @property integer $is_partner
  * @property string $share_img
+ * @property string $pay_code
+
  */
 class Member extends \yii\db\ActiveRecord
 {
@@ -49,7 +51,7 @@ class Member extends \yii\db\ActiveRecord
             [['phone','real_name','id_card', 'bank_card',], 'required'],
             [['create_time','active_time'], 'safe'],
             [['account_a', 'account_b', 'account_c'], 'number'],
-            [['real_name', 'password', 'id_card', 'bank_card', 'area', 'share_img'], 'string', 'max' => 255],
+            [['real_name', 'password', 'id_card', 'bank_card', 'area', 'share_img','pay_code'], 'string', 'max' => 255],
         ];
     }
 

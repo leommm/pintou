@@ -11,6 +11,7 @@ use app\models\MemberApply;
 use app\models\PintouShop;
 use app\models\ShopIncome;
 use app\modules\api\models\QrcodeForm;
+use app\modules\mch\models\QrCodeService;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 
@@ -194,6 +195,7 @@ class MemberController extends Controller
             if ($res['code']==0 && isset($res['data']['url'])) {
                 $member->share_img = $res['data']['url'];
             }
+            $member->pay_code = QrCodeService::createCode(1,$member->id);
             $member->is_active = 1;
             $member->active_time = date('Y-m-d H:i:s');
             $member->parent_id = $apply->parent_id;
