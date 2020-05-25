@@ -44,7 +44,7 @@ class PintouShop extends \yii\db\ActiveRecord
             [['real_name'], 'required'],
             [['is_delete', 'is_active','user_id'], 'integer'],
             [['total_income'], 'number'],
-            [['create_time'], 'safe'],
+            [['create_time','active_time'], 'safe'],
             [['real_name', 'wechat', 'password', 'shop_name', 'shop_type', 'shop_address', 'id_card', 'bank_card', 'license', 'collection_code'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 50],
         ];

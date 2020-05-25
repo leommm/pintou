@@ -180,29 +180,38 @@ class MemberController extends Controller
         $apply = MemberApply::findOne($id);
         $msg = '已驳回';
         if ($status == 1) {
-            $member = Member::find()->andWhere(['phone'=>$apply->phone,'real_name'=>$apply->real_name])->one();
-            if (!$member) {
+            if ($apply->type!=5) {
+                $model = Member::find()->andWhere(['phone'=>$apply->phone,'real_name'=>$apply->real_name])->one();
+            }else {
+                $model = PintouShop::find()->andWhere(['phone'=>$apply->phone,'real_name'=>$apply->real_name])->one();
+            }
+            if (!$model) {
                 return ['code'=>1,'msg'=>'未找到成员'];
             }
-            $form = new QrcodeForm();
-            $form->data = [
-                'scene' => "{$member->id}",
-                'page' => 'pages/registered_members/registered_members',
-                'width' => 150
-            ];
-            $form->store = $this->store;
-            $res = $form->getQrcode();
-            if ($res['code']==0 && isset($res['data']['url'])) {
-                $member->share_img = $res['data']['url'];
+            if ($apply->type!=5) {
+                $model->parent_id = $apply->parent_id;
+                $form = new QrcodeForm();
+                $form->data = [
+                    'scene' => "{$model->id}",
+                    'page' => 'pages/registered_members/registered_members',
+                    'width' => 150
+                ];
+                $form->store = $this->store;
+                $res = $form->getQrcode();
+                if ($res['code']==0 && isset($res['data']['url'])) {
+                    $model->share_img = $res['data']['url'];
+                }
+                $model->pay_code = QrCodeService::createCode(1,$model->id);
+            }else {
+                $model->collection_code = QrCodeService::createCode(2,$model->id);
             }
-            $member->pay_code = QrCodeService::createCode(1,$member->id);
-            $member->is_active = 1;
-            $member->active_time = date('Y-m-d H:i:s');
-            $member->parent_id = $apply->parent_id;
-            $member->user_id = $apply->user_id;
-            $member->id_card = $apply->id_card;
-            $member->bank_card = $apply->bank_card;
-            $member->save();
+
+            $model->is_active = 1;
+            $model->active_time = date('Y-m-d H:i:s');
+            $model->user_id = $apply->user_id;
+            $model->id_card = $apply->id_card;
+            $model->bank_card = $apply->bank_card;
+            $model->save();
             $msg = '已通过';
         }
         $apply->status = $status;
