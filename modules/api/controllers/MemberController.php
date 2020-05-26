@@ -6,6 +6,7 @@ namespace app\modules\api\controllers;
 use app\hejiang\BaseApiResponse;
 use app\modules\api\behaviors\LoginBehavior;
 use app\modules\api\models\ConsumeListForm;
+use app\modules\api\models\ForgetPasswordForm;
 use app\modules\api\models\MemberIncomeForm;
 use app\modules\api\models\MemberLoginForm;
 use app\modules\api\models\MemberPayForm;
@@ -45,6 +46,14 @@ class MemberController extends Controller
         $form->attributes = \Yii::$app->request->post();
         $form->user_id = \Yii::$app->user->id;
         return new BaseApiResponse($form->login());
+    }
+
+    //忘记密码
+    public function actionForgetPassword() {
+        $form = new ForgetPasswordForm();
+        $form->attributes = \Yii::$app->request->post();
+        $form->user_id = \Yii::$app->user->id;
+        return new BaseApiResponse($form->save());
     }
 
     //收入\消费记录

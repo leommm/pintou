@@ -193,6 +193,7 @@ class MemberLoginForm extends ApiModel
             ->orderBy('a.create_time')->limit(6)->asArray()->all();
         foreach ($intention_list as $k => $v) {
             $intention_list[$k]['product_type'] = Enum::getTypeNameByString($v['type']);
+            $intention_list[$k]['create_time'] = date('Y-m-d',strtotime($v['create_time']));
         }
         return [
           'member_info' => $member_info,

@@ -235,7 +235,7 @@ class ProjectController extends Controller
         if (!$model->save()) {
             return new \app\hejiang\ValidationErrorResponse($model->errors);
         }
-        MessageService::createMsg($model->member_id,1,'您拼投的'.$model->intention->project->title . '收益已到账');
+        MessageService::createMsg($model->member_id,1,'系统通知','您拼投的'.$model->intention->project->title . '收益已到账');
         return ['code'=>0,'msg'=>'添加成功'];
     }
 

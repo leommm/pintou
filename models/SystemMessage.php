@@ -35,7 +35,7 @@ class SystemMessage extends \yii\db\ActiveRecord
         return [
             [['title', 'content'], 'required'],
             [['member_id', 'shop_id', 'is_read', 'is_delete','type'], 'integer'],
-            [['create_time'], 'safe'],
+            [['create_time','page_url'], 'safe'],
             [['title', 'content'], 'string', 'max' => 255],
         ];
     }

@@ -53,7 +53,8 @@ class MemberController extends Controller
             //判断该手机号是否存在
             if ($model->isNewRecord) {
                 $exist1 = Member::find()->andWhere(['phone'=>$model->phone,'is_delete'=>0])->exists();
-                if ($exist1) {
+                $exist2 = PintouShop::find()->andWhere(['phone'=>$model->phone,'is_delete'=>0])->exists();
+                if ($exist1 || $exist2) {
                     return ['code'=>1,'msg'=>'该手机号已被使用'];
                 }
 
@@ -265,8 +266,9 @@ class MemberController extends Controller
             $model->attributes = \Yii::$app->request->post();
             //判断该手机号是否存在
             if ($model->isNewRecord) {
-                $exist1 = PintouShop::find()->andWhere(['phone'=>$model->phone,'is_delete'=>0])->exists();
-                if ($exist1) {
+                $exist1 = Member::find()->andWhere(['phone'=>$model->phone,'is_delete'=>0])->exists();
+                $exist2 = PintouShop::find()->andWhere(['phone'=>$model->phone,'is_delete'=>0])->exists();
+                if ($exist1 || $exist2) {
                     return ['code'=>1,'msg'=>'该手机号已被使用'];
                 }
             }
