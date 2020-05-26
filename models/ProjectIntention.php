@@ -42,7 +42,7 @@ class ProjectIntention extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['member_id', 'project_id', 'real_name', 'phone', 'type','stage'], 'required'],
+            [['member_id', 'project_id', 'real_name', 'phone', 'type'], 'required'],
             [['member_id', 'project_id', 'nanny_id', 'status','is_delete','stage','is_delete'], 'integer'],
             [['parking_money', 'flats_money', 'shop_money'], 'number'],
             [['create_time', 'deal_time'], 'safe'],

@@ -7,22 +7,9 @@ defined('YII_ENV') or exit('Access Denied');
  * Time: 16:52
  */
 $urlManager = Yii::$app->urlManager;
-$this->title = '专题编辑';
+$this->title = '动态编辑';
 $this->params['active_nav_group'] = 8;
 ?>
-<style>
-    .goods-item,
-    .video-item {
-        margin: 1rem 0;
-    }
-
-    .goods-item .goods-name,
-    .video-item .video-name {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-</style>
 <div class="panel mb-3" id="app">
     <div class="panel-header"><?= $this->title ?></div>
     <div class="panel-body">
@@ -105,7 +92,7 @@ $this->params['active_nav_group'] = 8;
                 </div>
                 <div class="col-2">
                     <select class="form-control" name="type">
-                        <option value="-1" <?= $user->type == -1 ? "selected" : "" ?>>全部</option>
+                        <option value="0" <?= $model->type == 0 ? "selected" : "" ?>>全部</option>
                             <?php foreach ($select as $item) : ?>
                             <option
                                 value="<?= $item->value ?>" <?= ($item->value == $model->type) ? "selected" : "" ?>><?= $item->name ?></option>
@@ -126,16 +113,6 @@ $this->params['active_nav_group'] = 8;
 
             <div class="form-group row">
                 <div class="form-group-label col-sm-2 text-right">
-                    <label class="col-form-label">虚拟收藏量</label>
-                </div>
-                <div class="col-sm-6">
-                    <input class="form-control" name="virtual_favorite_count"
-                           value="<?= $model->virtual_favorite_count ?>">
-                    <div class="text-muted fs-sm">手机端显示的收藏量=实际收藏量+虚拟收藏量</div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="form-group-label col-sm-2 text-right">
                     <label class="col-form-label">排序</label>
                 </div>
                 <div class="col-sm-6">
@@ -145,7 +122,7 @@ $this->params['active_nav_group'] = 8;
             </div>
             <div class="form-group row">
                 <div class="form-group-label col-sm-2 text-right">
-                    <label class="col-form-label">专题详情</label>
+                    <label class="col-form-label">动态详情</label>
                 </div>
                 <div class="col-sm-6">
                     <div flex="dir:left box:first">

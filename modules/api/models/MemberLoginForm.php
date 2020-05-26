@@ -161,7 +161,7 @@ class MemberLoginForm extends ApiModel
         $unsettle_amount = CommissionLog::find()->select('amount,create_time,is_settle')->andWhere(['member_id'=>$this->model->id,'is_delete'=>0,'is_settle'=>0])
             ->andWhere(['in','type',[3,4]])->sum('amount');
         $all_amount = $settle_amount + $unsettle_amount;
-        $num = Member::find()->alias('a')->andWhere(['a.parent_id'=>$this->model->id])
+        $num = Member::find()->alias('a')->andWhere(['a.parent_id'=>$this->model->id,'a.is_delete'=>0])
             ->leftJoin(['b'=>Member::tableName()],'a.id=b.parent_id')
             ->count();
         $sum = floatval($this->model->account_a) + floatval($this->model->account_b) + floatval($this->model->account_c);
@@ -227,8 +227,8 @@ class MemberLoginForm extends ApiModel
         $unsettle_amount = CommissionLog::find()->select('amount,create_time,is_settle')->andWhere(['member_id'=>$this->model->id,'is_delete'=>0,'is_settle'=>0])
             ->andWhere(['in','type',[3,4]])->sum('amount');
         $all_amount = $settle_amount + $unsettle_amount;
-        $num = Member::find()->alias('a')->andWhere(['a.parent_id'=>$this->model->id])
-            ->leftJoin(['b'=>Member::tableName()],'a.id=b.parent_id')
+        $num = Member::find()->alias('a')->andWhere(['a.parent_id'=>$this->model->id,'a.is_delete'=>0])
+            ->leftJoin(['b'=>Member::tableName()],'a.id=b.parent_id and b.is_delete=0')
             ->count();
         $agent_info = [
             'agent_id' => $this->model->id,

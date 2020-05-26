@@ -10,6 +10,7 @@ use app\modules\api\models\MemberIncomeForm;
 use app\modules\api\models\MemberLoginForm;
 use app\modules\api\models\MemberPayForm;
 use app\modules\api\models\MemberRegisterForm;
+use app\modules\api\models\SubListForm;
 use app\utils\Sms;
 
 class MemberController extends Controller
@@ -62,6 +63,15 @@ class MemberController extends Controller
         $form = new MemberPayForm();
         $form->attributes = \Yii::$app->request->post();
         return new BaseApiResponse($form->pay());
+    }
+
+    /**
+     * 下级列表
+     */
+    public function actionSubList() {
+        $form = new SubListForm();
+        $form->attributes = \Yii::$app->request->post();
+        return new BaseApiResponse($form->search());
     }
 
 }

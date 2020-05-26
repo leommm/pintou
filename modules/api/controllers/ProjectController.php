@@ -129,12 +129,6 @@ class ProjectController extends Controller
         return new BaseApiResponse($form->search());
     }
 
-    /**
-     * 下级列表
-     */
-    public function actionSubList() {
-
-    }
 
 
 }

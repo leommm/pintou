@@ -61,7 +61,7 @@ class Topic extends \yii\db\ActiveRecord
             'title' => '标题',
             'sub_title' => '副标题',
             'cover_pic' => '封面图片',
-            'content' => '专题内容',
+            'content' => '动态内容',
             'read_count' => '阅读量',
             'virtual_read_count' => '虚拟阅读量',
             'layout' => '布局方式：0=小图，1=大图模式',

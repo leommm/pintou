@@ -36,7 +36,7 @@ class TopicListForm extends ApiModel
         } elseif ($this->type==='-2') {
             $query = Topic::find()->where([ 'is_delete' => 0]);
         } elseif ($this->type) {
-            $query = Topic::find()->where([ 'is_delete' => 0])->andWhere('type=:type', [':type' => $this->type]);
+            $query = Topic::find()->where([ 'is_delete' => 0])->andWhere(['in','type',[0,$this->type]]);
         } else {
              $query = Topic::find()->where([ 'is_delete' => 0]);
         }
