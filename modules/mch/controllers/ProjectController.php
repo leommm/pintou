@@ -49,7 +49,7 @@ class ProjectController extends Controller
         }
         if (\Yii::$app->request->isPost) {
             $model->attributes = \Yii::$app->request->post();
-            $model->imgs = json_encode(\Yii::$app->request->post('imgs'));
+            $model->imgs = json_encode(\Yii::$app->request->post('imgs'),JSON_UNESCAPED_SLASHES);
             if (!$model->save()) {
                 return new \app\hejiang\ValidationErrorResponse($model->errors);
             }

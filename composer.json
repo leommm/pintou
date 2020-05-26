@@ -23,7 +23,8 @@
         "symfony/event-dispatcher": "^2.1",
         "jdorn/sql-formatter": "^1.2",
         "wi1dcard/alipay-sdk": "^0.2",
-      "ext-bcmath": "*"
+      "ext-bcmath": "*",
+      "ext-json": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

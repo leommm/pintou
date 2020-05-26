@@ -1688,7 +1688,7 @@ class StoreController extends Controller
             $model->index_ad = json_encode([
                 'img_url' => \Yii::$app->request->post('img_url'),
                 'page' => \Yii::$app->request->post('page'),
-            ]);
+            ],JSON_UNESCAPED_SLASHES);
             $model->save();
             return ['code'=>0,'msg'=>'保存成功'];
         }
