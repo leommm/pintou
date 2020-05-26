@@ -28,6 +28,7 @@ use Yii;
  * @property integer $p_id
  * @property integer $c_id
  * @property integer $d_id
+ * @property string $imgs
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -46,7 +47,7 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             [['title','cover_pic','content','area'],'required'],
-            [['cover_pic', 'content'], 'string'],
+            [['cover_pic', 'content','imgs'], 'string'],
             [['read_count', 'virtual_read_count', 'sort', 'is_delete', 'is_chosen', 'is_show', 'is_hot', 'p_id', 'c_id', 'd_id'], 'integer'],
             [['create_time', 'agree_count', 'virtual_agree_count', 'virtual_favorite_count','type'], 'safe'],
             [['title', 'sub_title', 'area'], 'string', 'max' => 255],

@@ -100,6 +100,57 @@ $type = explode(',',$model->type);
             </div>
 
             <div class="form-group row">
+                <div class="form-group-label col-sm-2  text-right">
+                    <label class="col-form-label required">项目图片</label>
+                </div>
+                <div class="col-sm-6">
+                    <div class="upload-group multiple short-row">
+                        <div class="input-group">
+                            <input class="form-control file-input" readonly>
+                            <span class="input-group-btn">
+                                        <a class="btn btn-secondary upload-file" href="javascript:"
+                                           data-toggle="tooltip"
+                                           data-placement="bottom" title="上传文件">
+                                            <span class="iconfont icon-cloudupload"></span>
+                                        </a>
+                                    </span>
+                            <span class="input-group-btn">
+                                        <a class="btn btn-secondary select-file" href="javascript:"
+                                           data-toggle="tooltip"
+                                           data-placement="bottom" title="从文件库选择">
+                                            <span class="iconfont icon-viewmodule"></span>
+                                        </a>
+                                    </span>
+                        </div>
+                        <div class="upload-preview-list" id="sortList">
+                            <?php
+                                $pic_list = json_decode($model->imgs,true);
+                                if (count($pic_list) > 0) : ?>
+                                <?php foreach ($pic_list as $item) : ?>
+                                    <div class="upload-preview text-center" flex="cross:center">
+                                        <input type="hidden" class="file-item-input"
+                                               name="imgs[]"
+                                               value="<?= $item ?>">
+                                        <span class="file-item-delete">&times;</span>
+                                        <span class="upload-preview-tip">750&times;400</span>
+                                        <img class="upload-preview-img" src="<?= $item ?>">
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <div class="upload-preview text-center">
+                                    <input type="hidden" class="file-item-input" name="imgs[]">
+                                    <span class="file-item-delete">&times;</span>
+                                    <span class="upload-preview-tip">750&times;400</span>
+                                    <img class="upload-preview-img" src="">
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <div class="form-group-label col-sm-2 text-right">
                     <label class="col-form-label">是否热门</label>
                 </div>

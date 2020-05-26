@@ -49,6 +49,7 @@ class ProjectController extends Controller
         }
         if (\Yii::$app->request->isPost) {
             $model->attributes = \Yii::$app->request->post();
+            $model->imgs = json_encode(\Yii::$app->request->post('imgs'));
             if (!$model->save()) {
                 return new \app\hejiang\ValidationErrorResponse($model->errors);
             }

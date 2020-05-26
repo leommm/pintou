@@ -395,30 +395,30 @@ class Menu
                                     ],
                                 ]
                             ],
-                            [
-                                'name' => '自动发放设置',
-                                'is_menu' => true,
-                                'route' => 'mch/coupon/auto-send',
-                                'sub' => [
-                                    [
-                                        'name' => '自动发放编辑',
-                                        'is_menu' => false,
-                                        'route' => 'mch/coupon/auto-send-edit'
-                                    ]
-                                ],
-                                'action' => [
-                                    [
-                                        [
-                                            'name' => '优惠券自动发放设置',
-                                            'route' => 'mch/coupon/auto-send-edit'
-                                        ],
-                                        [
-                                            'name' => '优惠券自动发放方案删除',
-                                            'route' => 'mch/coupon/auto-send-delete'
-                                        ],
-                                    ]
-                                ]
-                            ]
+//                            [
+//                                'name' => '自动发放设置',
+//                                'is_menu' => true,
+//                                'route' => 'mch/coupon/auto-send',
+//                                'sub' => [
+//                                    [
+//                                        'name' => '自动发放编辑',
+//                                        'is_menu' => false,
+//                                        'route' => 'mch/coupon/auto-send-edit'
+//                                    ]
+//                                ],
+//                                'action' => [
+//                                    [
+//                                        [
+//                                            'name' => '优惠券自动发放设置',
+//                                            'route' => 'mch/coupon/auto-send-edit'
+//                                        ],
+//                                        [
+//                                            'name' => '优惠券自动发放方案删除',
+//                                            'route' => 'mch/coupon/auto-send-delete'
+//                                        ],
+//                                    ]
+//                                ]
+//                            ]
                         ]
                     ],
                 ],

@@ -48,7 +48,7 @@ class ProjectController extends Controller
         if (!$id) {
             return new ApiResponse(1,'缺少参数');
         }
-        $data = Project::find()->select('id,title,sub_title,content,area,cover_pic,type,read_count,virtual_read_count,is_chosen,is_hot,create_time')
+        $data = Project::find()->select('id,title,sub_title,content,area,cover_pic,imgs,type,read_count,virtual_read_count,is_chosen,is_hot,create_time')
             ->andWhere(['id'=>$id])->asArray()->one();
         $read_count = intval($data['read_count'] + $data['virtual_read_count']);
         unset($data['read_count']);

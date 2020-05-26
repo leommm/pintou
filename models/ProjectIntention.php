@@ -83,9 +83,6 @@ class ProjectIntention extends \yii\db\ActiveRecord
         if (is_array($this->type)){
             $this->type = implode(',',$this->type);
         }
-        if ($this->nanny_id != 0 && $this->status == 1) {
-            $this->status = 2;
-        }
         return parent::beforeSave($insert);
     }
 
