@@ -7,6 +7,7 @@ namespace app\modules\api\models;
 use app\models\Enum;
 use app\models\ProjectIntention;
 use app\models\SystemSetting;
+use app\models\User;
 use app\utils\Helper;
 use yii\data\Pagination;
 
@@ -33,10 +34,12 @@ class IntentionListForm extends ApiModel
         }
         $query = ProjectIntention::find()->alias('a')
             ->select('a.id as intention_id,c.id as project_id,c.title,c.sub_title,c.cover_pic,a.remark,
-            a.type,a.real_name,a.phone,a.parking_money,a.flats_money,a.shop_money,a.status,a.create_time,
+            a.type,a.real_name,a.phone,e.avatar_url,a.parking_money,a.flats_money,a.shop_money,a.status,a.create_time,
             a.nanny_id,b.real_name as nanny_name,b.phone as nanny_phone')
             ->joinWith('nanny as b',false)
             ->joinWith('project as c',false)
+            ->joinWith('member as d',false)
+            ->leftJoin(['e'=>User::tableName()],'e.id=d.user_id')
             ->andWhere(['a.is_delete'=>0]);
         if ($this->member_id) {
            $query->andWhere(['a.member_id'=>$this->member_id])->andWhere(['in','a.status',[1,2,3]]);
