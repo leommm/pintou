@@ -7,6 +7,11 @@ $this->title = '公告列表';
 <div class="panel mb-3">
     <div class="panel-header">
         <span><?= $this->title ?></span>
+        <ul class="nav nav-right">
+            <li class="nav-item">
+                <a class="nav-link" href="<?= $urlManager->createUrl(['mch/message/notice-edit']) ?>">添加公告</a>
+            </li>
+        </ul>
     </div>
               
     <form method="get" >
@@ -17,8 +22,8 @@ $this->title = '公告列表';
         <div>
             <select style="display:inline;max-width:10%" class="form-control" name="is_push">
                 <option value="" <?= $search['is_push']==='' ? 'selected' : ''?>>全部状态</option>
-                <option value="0" <?= $search['is_push']==='0' ? 'selected' : ''?>>已推送</option>
-                <option value="1" <?= $search['is_push']==='1' ? 'selected' : ''?>>待推送</option>
+                <option value="0" <?= $search['is_push']==='0' ? 'selected' : ''?>>待推送</option>
+                <option value="1" <?= $search['is_push']==='1' ? 'selected' : ''?>>已推送</option>
 
             </select>
             <button style="margin-bottom: 6px;margin-left:30px" class="btn btn-primary mr-4">筛选</button>
@@ -44,25 +49,23 @@ $this->title = '公告列表';
                     <td class="text-center">
                         <p><?=$item->title?></p>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <p><?=$item->content?></p>
                     </td>
                     <td class="text-center">
                         <p><?= $item->page_url?></p>
                     </td>
-                    <td class="text-center"><?= \app\models\Enum::$APPLY_STATUS_TYPE[$item->status] ?></td>
+                    <td class="text-center"><?= $item->is_push == 1 ? '已推送' : '待推送' ?></td>
 
                     <td class="text-center"><?= $item->create_time ?></td>
                     <td class="text-center">
-                        <?php
-                            if ($item->status==0) {
-                                ?>
-                                <a class="btn btn-sm btn-primary apply-btn"
-                                   href="<?= $urlManager->createUrl(['mch/member/apply', 'id' => $item->id,'status'=>1]) ?>">通过</a>
-                                <a class="btn btn-sm btn-danger apply-btn"
-                                   href="<?= $urlManager->createUrl(['mch/member/apply', 'id' => $item->id,'status'=>2]) ?>">驳回</a>
-                        <?php    }
-                        ?>
+                        <?php if (!$item->is_push) : ?>
+                            <a class="btn btn-sm btn-primary"
+                                                           href="<?= $urlManager->createUrl(['mch/message/notice-edit', 'id' => $item->id,])?>">编辑</a>
+
+                            <a class="btn btn-sm btn-info push-btn"
+                               href="<?= $urlManager->createUrl(['mch/message/push', 'id' => $item->id,])?>">推送</a>
+                        <?php endif;?>
                     </td>
                 </tr>
             <?php endforeach ?>
@@ -75,7 +78,7 @@ $this->title = '公告列表';
 </div>
 
 <script>
-    $(document).on("click", ".apply-btn", function () {
+    $(document).on("click", ".push-btn", function () {
         var url = $(this).attr("href");
         var content = '确认' + $(this).text() + '?';
         $.confirm({

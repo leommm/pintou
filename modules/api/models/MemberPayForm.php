@@ -5,6 +5,7 @@ namespace app\modules\api\models;
 
 
 use app\models\Member;
+use app\models\MessageService;
 use app\models\PintouShop;
 use app\models\ShopIncome;
 use yii\db\Exception;
@@ -54,6 +55,9 @@ class MemberPayForm extends ApiModel
             $member->account_b = $left;
 
             $shop->total_income = bcadd($shop->total_income,$this->amount,2);
+            MessageService::createMsg($this->member_id,1,'系统通知','您在'.$shop->shop_name.'消费了'.$this->amount.'元','pages/records_consumption/records_consumption');
+            MessageService::createShopMsg($this->shop_id,5,'系统通知',$member->real_name.'消费了'.$this->amount.'元','pages/business_center/business_center');
+
             if (!$log->save() || !$member->save() || !$shop->save()) {
                 throw new Exception('保存失败');
             }

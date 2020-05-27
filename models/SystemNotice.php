@@ -31,8 +31,8 @@ class SystemNotice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'title', 'content'], 'required'],
-            [['id', 'is_push', 'is_delete'], 'integer'],
+            [['title', 'content'], 'required'],
+            [['is_push', 'is_delete'], 'integer'],
             [['content'], 'string'],
             [['create_time'], 'safe'],
             [['title', 'page_url'], 'string', 'max' => 255],
@@ -53,5 +53,13 @@ class SystemNotice extends \yii\db\ActiveRecord
             'is_push' => '是否推送',
             'is_delete' => 'Is Delete',
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if ($this->isNewRecord) {
+            $this->create_time = date('Y-m-d H:i:s');
+        }
+        return parent::beforeSave($insert);
     }
 }
