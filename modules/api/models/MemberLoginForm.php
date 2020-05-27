@@ -183,7 +183,7 @@ class MemberLoginForm extends ApiModel
             'not_read' => SystemMessage::find()->andWhere(['member_id'=>$this->model->id,'is_delete'=>0,'is_read'=>0])->count(),
         ];
         $intention_list = ProjectIntention::find()->alias('a')
-            ->select('a.phone,a.remark,a.create_time,a.type,a.status,
+            ->select('a.id as intention_id,a.phone,a.remark,a.create_time,a.type,a.status,
             a.nanny_id,b.real_name as nanny_name,b.phone as nanny_phone,
             c.id as project_id,c.title,c.cover_pic')
             ->joinWith('nanny as b',false)
