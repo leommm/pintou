@@ -55,7 +55,7 @@ class ForgetPasswordForm extends ApiModel
         if ($model->is_active == 0) {
             return ['code'=>1,'账号未认证'];
         }
-        if ($model->user_id != $this->user_id) {
+        if (isset($model->role) && $model->role != 2 && $model->user_id != $this->user_id) {
             return ['code'=>1,'非认证微信号，无法操作'];
         }
         $model->password = \Yii::$app->getSecurity()->generatePasswordHash($this->password);
