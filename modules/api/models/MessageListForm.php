@@ -29,7 +29,10 @@ class MessageListForm extends ApiModel
             return new ApiResponse(1,'缺少参数');
         }
 
-        $query = SystemMessage::find()->andFilterWhere(['member_id'=>$this->member_id,'shop_id'=>$this->shop_id])->andWhere(['in','type',[0,$this->type]]);
+        $query = SystemMessage::find()
+            ->andFilterWhere(['member_id'=>$this->member_id,'shop_id'=>$this->shop_id])
+            ->andWhere(['is_delete'=>0])
+            ->andWhere(['in','type',[0,$this->type]]);
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count, 'page' => $this->page - 1, 'pageSize' => $this->limit]);
         $query = $query->orderBy('create_time DESC');
