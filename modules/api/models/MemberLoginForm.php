@@ -83,7 +83,7 @@ class MemberLoginForm extends ApiModel
             $this->addError($attribute,'请先认证');
             return false;
         }
-        if ($this->model->user_id != $this->user_id) {
+        if ($this->type !=2 && $this->model->user_id != $this->user_id) {
             $this->addError($attribute,'非认证微信号，无法登录');
             return false;
         }
