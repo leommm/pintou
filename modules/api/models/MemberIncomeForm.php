@@ -42,7 +42,7 @@ class MemberIncomeForm extends ApiModel
            'all_account_b' => bcmul($all_amount,$b_rate,2),
            'list'=>$list
        ];
-        return ['code'=>0,'msg'=>'success',$data];
+        return ['code'=>0,'msg'=>'success','data'=>$data];
     }
 
 

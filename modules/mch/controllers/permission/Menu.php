@@ -349,6 +349,19 @@ class Menu
                             ],
                         ],
                     ],
+                    [
+                        'key' => 'notice',
+                        'name' => '公告',
+                        'is_menu' => true,
+                        'route' => 'mch/message/notice',
+                        'sub' => [
+                            [
+                                'name' => '公告编辑',
+                                'is_menu' => false,
+                                'route' => 'mch/message/notice-edit',
+                            ]
+                        ],
+                    ],
                 ],
             ],
 
