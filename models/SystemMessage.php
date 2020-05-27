@@ -15,6 +15,7 @@ use Yii;
  * @property integer $is_read
  * @property integer $is_delete
  * @property string $create_time
+ * @property string $page_url
  * @property integer $type
  */
 class SystemMessage extends \yii\db\ActiveRecord
