@@ -7,15 +7,15 @@ defined('YII_ENV') or exit('Access Denied');
  * Time: 12:04
  */
 /* @var \yii\web\View $this */
-$this->title = '我的小程序商城';
+$this->title = '我的小程序';
 $url_manager = Yii::$app->urlManager;
 $current_url = Yii::$app->request->absoluteUrl;
 $this->params['active_nav_link'] = 'admin/app/index';
 ?>
 <div class="mb-3">
-    <a href="javascript:" class="btn btn-sm btn-primary mr-3 add-app">添加小程序商城</a>
+    <a href="javascript:" class="btn btn-sm btn-primary mr-3 add-app">添加小程序</a>
     <span>
-        <span>可创建小程序商城数量：<?= $app_max_count == 0 ? '无限制' : $app_max_count . '个' ?></span>
+        <span>可创建小程序数量：<?= $app_max_count == 0 ? '无限制' : $app_max_count . '个' ?></span>
         <?php if ($app_max_count != 0) : ?>
             <span>，剩余创建个数：<?= $app_max_count - $app_count ?></span>
         <?php endif; ?>
@@ -32,7 +32,7 @@ $this->params['active_nav_link'] = 'admin/app/index';
     <?php if (count($list) == 0) : ?>
         <tr>
             <td colspan="3" class="text-center p-5">
-                <a href="javascript:" class="add-app">添加小程序商城</a>
+                <a href="javascript:" class="add-app">添加小程序</a>
             </td>
         </tr>
     <?php endif; ?>
@@ -43,7 +43,7 @@ $this->params['active_nav_link'] = 'admin/app/index';
                 <a href="<?= $url_manager->createUrl(['admin/app/entry', 'id' => $item->id]) ?>"><?= $item->name ?></a>
             </td>
             <td>
-                <a href="<?= $url_manager->createUrl(['admin/app/entry', 'id' => $item->id]) ?>">进入商城</a>
+                <a href="<?= $url_manager->createUrl(['admin/app/entry', 'id' => $item->id]) ?>">进入后台</a>
                 <span>|</span>
                 <a class="recycle-btn"
                    href="<?= $url_manager->createUrl(['admin/app/set-recycle', 'id' => $item->id, 'action' => 1,]) ?>">回收</a>

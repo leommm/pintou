@@ -49,7 +49,7 @@ class Menu
                 'icon' => 'icon-setup',
                 'children' => [
                     [
-                        'name' => '我的小程序商城',
+                        'name' => '我的小程序',
                         'route' => 'admin/app/index',
                         'icon' => 'icon-shanghu',
                         'is_admin' => false,
@@ -65,7 +65,7 @@ class Menu
                                 'is_admin' => false,
                             ],
                             [
-                                'name' => '删除小程序商城',
+                                'name' => '删除小程序',
                                 'route' => 'admin/app/delete',
                                 'is_admin' => false,
                             ],
