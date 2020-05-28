@@ -30,7 +30,7 @@ class ConsumeListForm extends ApiModel
         $query = ShopIncome::find()->alias('a')
             ->joinWith('member as b',false)
             ->joinWith('shop as c',false)
-            ->select('a.id,b.real_name as member_name,c.shop_name,a.amount,a.create_time')
+            ->select('a.id,b.real_name as member_name,c.shop_name,a.amount,a.is_cash,a.create_time')
             ->andFilterWhere(['a.member_id'=>$this->member_id,'shop_id'=>$this->shop_id]);
         $count = $query->count();
 
