@@ -85,10 +85,12 @@ $this->title = '成员列表';
                         <div class="mb-2">
                             <a class="btn btn-sm btn-primary"
                                href="<?= $urlManager->createUrl(['mch/member/edit', 'id' => $item['id']]) ?>">编辑</a>
-                        </div>
-                        <div>
                             <a class="btn btn-sm btn-danger delete-btn"
                                href="<?= $urlManager->createUrl(['mch/member/delete', 'id' => $item['id']]) ?>">删除</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-sm btn-info"
+                               href="<?= $urlManager->createUrl(['mch/member/commission-log', 'id' => $item['id']]) ?>">佣金记录</a>
                         </div>
                     </td>
                 </tr>

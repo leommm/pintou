@@ -268,6 +268,16 @@ class Menu
                                 'is_menu' => false,
                                 'route' => 'mch/member/settle',
                             ],
+                            [
+                                'name' => '导出',
+                                'is_menu' => false,
+                                'route' => 'mch/member/export',
+                            ],
+                            [
+                                'name' => '导出并结算',
+                                'is_menu' => false,
+                                'route' => 'mch/member/export-and-settle',
+                            ],
                         ],
                     ],
                 ],

@@ -19,9 +19,10 @@ $this->title = '佣金记录';
                 <option value="" <?= $search['is_settle']==='' ? 'selected' : ''?>>全部状态</option>
                 <option value="1" <?= $search['is_settle']==='1' ? 'selected' : ''?>>已结算</option>
                 <option value="0" <?= $search['is_settle']==='0' ? 'selected' : ''?>>未结算</option>
-
             </select>
+            <input type="hidden" name="id" value="<?= $search['id'] ?>">
             <button style="margin-bottom: 6px;margin-left:30px" class="btn btn-primary mr-4">筛选</button>
+            <a href="<?php echo $urlManager->createUrl(['mch/member/export','search'=>$search])?>" style="margin-bottom: 6px;margin-left:5px" class="btn btn-info mr-4">导出</a>
         </div>
     </form>        
 

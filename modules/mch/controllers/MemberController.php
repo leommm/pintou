@@ -11,6 +11,7 @@ use app\models\MemberApply;
 use app\models\PintouShop;
 use app\models\ShopIncome;
 use app\modules\api\models\QrcodeForm;
+use app\modules\mch\extensions\Export;
 use app\modules\mch\models\QrCodeService;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
@@ -120,10 +121,13 @@ class MemberController extends Controller
     }
 
     //佣金记录
-    public function actionCommissionLog($is_settle='') {
+    public function actionCommissionLog($is_settle='',$id=0) {
         $query = CommissionLog::find()->where(['is_delete' => 0])->andWhere(['not in','type',[1,2]]);
         if ($is_settle !== '') {
             $query->andWhere(['is_settle' => $is_settle]);
+        }
+        if ($id) {
+            $query->andWhere(['member_id' => $id]);
         }
         $query->orderBy('create_time DESC');
         $count = $query->count();
@@ -137,7 +141,10 @@ class MemberController extends Controller
         return $this->render('commission-log', [
             'list' => $dataProvider->getModels(),
             'pagination' => $pagination,
-            'search' => ['is_settle'=>$is_settle],
+            'search' => [
+                'is_settle'=>$is_settle,
+                'id' => $id,
+            ],
         ]);
     }
 
@@ -329,6 +336,16 @@ class MemberController extends Controller
         $income->is_cash = 1;
         $income->save();
         return ['code'=>0,'msg'=>'已提现'];
+    }
+
+    //佣金导出
+    public function actionExport() {
+        $search = \Yii::$app->request->get('search');
+        Export::CommissionLog($search);
+    }
+
+    //佣金导出并结算
+    public function actionExportAndSettle() {
 
     }
 

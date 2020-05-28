@@ -8,9 +8,13 @@
 
 namespace app\modules\mch\extensions;
 
+use app\models\CommissionLog;
+use app\models\Enum;
 use app\models\OrderForm;
 use app\models\Shop;
 use app\models\User;
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 
 class Export
 {
@@ -489,5 +493,45 @@ class Export
             }
         }
         return $EXCEL_OUT;
+    }
+
+    public static function CommissionLog($search) {
+        $query = CommissionLog::find()->where(['is_delete' => 0])->andWhere(['not in','type',[1,2]]);
+        if (isset($search['is_settle']) && $search['is_settle'] !== '') {
+            $query->andWhere(['is_settle' => $search['is_settle']]);
+        }
+        if (isset($search['id'])) {
+            $query->andWhere(['member_id'=>$search['id']]);
+        }
+        $query->orderBy('create_time DESC');
+        $count = $query->count();
+        if ($count > 1000) {
+            return ['code'=>1,'msg'=>'数据量过大，请查询后再处理'];
+        }
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
+        $list = $dataProvider->getModels();
+
+        $title = "序号,姓名,身份,项目,佣金,状态,创建时间";
+        $title .= "\n";
+        $EXCEL_OUT = mb_convert_encoding($title, 'GBK', 'UTF-8');
+        foreach ($list as $k => $item) {
+            $out = [];
+            $out = [
+                $k+1,$item->member->real_name,Enum::getRoleName($item->member->role),
+                $item->intention->project->title,$item->amount,
+                Enum::getCommissionStatus($item->is_settle),$item->create_time
+            ];
+
+            $EXCEL_OUT .= mb_convert_encoding(implode(',', $out) . "\n", 'GBK', 'UTF-8');
+        }
+
+        $name = "佣金导出-" . date('YmdHis', time()); //导出文件名称
+        header("Content-Disposition:attachment;filename={$name}.csv"); //“生成文件名称”=自定义
+        self::exportHeader($EXCEL_OUT);
+        exit();
+
+
     }
 }

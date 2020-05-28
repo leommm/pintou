@@ -69,5 +69,12 @@ class Enum
         return implode('、', $type_arr);
     }
 
+    public static function getCommissionStatus($status) {
+        $status_arr = [
+            0 => '未结算',1 => '已结算'
+        ];
+        return in_array($status,$status_arr) ? $status_arr[$status] : '未知';
+    }
+
 
 }

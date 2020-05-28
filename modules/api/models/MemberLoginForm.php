@@ -9,6 +9,7 @@ use app\models\Enum;
 use app\models\Member;
 use app\models\PintouShop;
 use app\models\ProjectIntention;
+use app\models\ShopIncome;
 use app\models\SystemMessage;
 use Yii;
 
@@ -161,6 +162,7 @@ class MemberLoginForm extends ApiModel
         $unsettle_amount = CommissionLog::find()->select('amount,create_time,is_settle')->andWhere(['member_id'=>$this->model->id,'is_delete'=>0,'is_settle'=>0])
             ->andWhere(['in','type',[3,4]])->sum('amount');
         $all_amount = $settle_amount + $unsettle_amount;
+        $cost_amount = ShopIncome::find()->andWhere(['member_id'=>$this->model->id])->sum('amount');
         $num = SubListService::getSubCount($this->model->id);
         $sum = floatval($this->model->account_a) + floatval($this->model->account_b) + floatval($this->model->account_c);
         $member_info = [
@@ -176,6 +178,7 @@ class MemberLoginForm extends ApiModel
             'sum_money' => empty($sum) ? "0.00" : $sum,
             'settle_amount' => empty($settle_amount)? "0.00" :$settle_amount,
             'unsettle_amount' => empty($unsettle_amount)? "0.00" :$unsettle_amount,
+            'cost_amount' => empty($cost_amount)? "0.00" :$cost_amount,
             'all_amount' => empty($all_amount)? "0.00":$all_amount,
             'client_num' => $num,
             'share_img' => $this->model->share_img,
