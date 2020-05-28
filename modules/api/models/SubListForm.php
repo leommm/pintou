@@ -48,8 +48,8 @@ class SubListForm extends ApiModel
                 ->sum('amount');
             $list[$k]['sum_commission'] = empty($sum_commission) ? '0.00' : $sum_commission;
         }
-
-        return ['code' => 0, 'msg' => 'success', ['is_next'=>$is_next,'list'=>$list]];
+        $data = ['is_next'=>$is_next,'list'=>$list];
+        return ['code' => 0, 'msg' => 'success', 'data'=>$data];
 
     }
 
