@@ -77,11 +77,11 @@ class Menu
                         'is_menu' => true,
                         'route' => 'mch/store/wxapp',
                     ],
-                    [
-                        'name' => '小程序页面',
-                        'is_menu' => true,
-                        'route' => 'mch/store/wxapp-pages',
-                    ],
+//                    [
+//                        'name' => '小程序页面',
+//                        'is_menu' => true,
+//                        'route' => 'mch/store/wxapp-pages',
+//                    ],
                     [
                         'name' => '微信公众号',
                         'is_menu' => true,
