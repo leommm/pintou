@@ -37,7 +37,7 @@ class MessageListForm extends ApiModel
         $pagination = new Pagination(['totalCount' => $count, 'page' => $this->page - 1, 'pageSize' => $this->limit]);
         $query = $query->orderBy('create_time DESC');
         $list = $query->limit($pagination->limit)->offset($pagination->offset)
-            ->select('id,title,content,is_read,type,create_time')
+            ->select('id,title,content,is_read,type,create_time,page_url')
             ->asArray()->all();
         foreach ($list as $i => $item) {
             $list[$i]['time'] = date('Y-m-d',strtotime($item['create_time']));

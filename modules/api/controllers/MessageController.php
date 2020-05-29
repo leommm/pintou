@@ -33,6 +33,20 @@ class MessageController extends Controller
         return new ApiResponse(0,'success');
     }
 
+    public function actionRead() {
+        $msg_id = \Yii::$app->request->post('msg_id');
+        if (!$msg_id) {
+            return new ApiResponse(1,'缺少参数');
+        }
+        $msg = SystemMessage::findOne($msg_id);
+        if (!$msg) {
+            return new ApiResponse(1,'未找到消息');
+        }
+        $msg->is_read = 1;
+        $msg->save();
+        return new ApiResponse(0,'success');
+    }
+
     public function actionDelete() {
         $msg_id = \Yii::$app->request->post('msg_id');
         if (!$msg_id) {
