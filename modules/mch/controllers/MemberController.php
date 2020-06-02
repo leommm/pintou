@@ -189,9 +189,9 @@ class MemberController extends Controller
         $msg = '已驳回';
         if ($status == 1) {
             if ($apply->type!=5) {
-                $model = Member::find()->andWhere(['phone'=>$apply->phone,'real_name'=>$apply->real_name])->one();
+                $model = Member::find()->andWhere(['phone'=>$apply->phone,'real_name'=>$apply->real_name,'is_delete' =>0])->one();
             }else {
-                $model = PintouShop::find()->andWhere(['phone'=>$apply->phone,'real_name'=>$apply->real_name])->one();
+                $model = PintouShop::find()->andWhere(['phone'=>$apply->phone,'real_name'=>$apply->real_name,'is_delete' =>0])->one();
             }
             if (!$model) {
                 return ['code'=>1,'msg'=>'未找到成员'];
